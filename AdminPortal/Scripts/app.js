@@ -7,7 +7,8 @@
     self.newAdmin = {
         TenantName: ko.observable(),
         IcmName: ko.observable(),
-       }
+        AppGroup: ko.observable
+    }
 
     var adminsUri = '/api/admins/';
     var appgroupsUri = '/api/appgroups/';
@@ -46,7 +47,7 @@
 
     self.addAdmin = function (formElement) {
         var admin = {
-            //AppGroupId: self.newAdmin.AppGroup().Id,
+            //AppGroup: self.newAdmin.AppGroup().Id,
             TenantName: self.newAdmin.TenantName(),
             IcmName: self.newAdmin.IcmName(),
           

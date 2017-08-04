@@ -86,6 +86,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Tracing, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Tracing.5.2.3\lib\net45\System.Web.Http.Tracing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -242,13 +246,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708030346178_Inital.cs" />
-    <Compile Include="Migrations\201708030346178_Inital.Designer.cs">
-      <DependentUpon>201708030346178_Inital.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708030401350_Inital1.cs" />
-    <Compile Include="Migrations\201708030401350_Inital1.Designer.cs">
-      <DependentUpon>201708030401350_Inital1.cs</DependentUpon>
+    <Compile Include="Migrations\201708031123186_Onboard.cs" />
+    <Compile Include="Migrations\201708031123186_Onboard.Designer.cs">
+      <DependentUpon>201708031123186_Onboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -341,11 +341,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708030346178_Inital.resx">
-      <DependentUpon>201708030346178_Inital.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708030401350_Inital1.resx">
-      <DependentUpon>201708030401350_Inital1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708031123186_Onboard.resx">
+      <DependentUpon>201708031123186_Onboard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

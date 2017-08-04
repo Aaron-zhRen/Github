@@ -27,21 +27,21 @@ namespace AdminPortal.Migrations
                     AdminId = 1,
                     TenantName = "Admin-1",
                     IcmName = "ICMN1",
-                    //AppGroupId = 1
+                    AppGroupId = 1
                 },
                 new Admin()
                 {
                     AdminId = 2,
                     TenantName = "Admin-2",
                     IcmName = "ICMN2",
-                    //AppGroupId = 2
+                    AppGroupId = 2
                 },
                 new Admin()
                 {
                     AdminId = 3,
                     TenantName = "Admin-3",
                     IcmName = "ICMN3",
-                    //AppGroupId = 1
+                    AppGroupId = 1
                 }
                 );
         }

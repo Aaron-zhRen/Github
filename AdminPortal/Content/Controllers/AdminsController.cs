@@ -20,7 +20,7 @@ namespace AdminPortal.Controllers
         // GET: api/Admins
         public IQueryable<Admin> GetAdmins()
         {
-            return db.Admins;
+            return db.Admins.Include(b => b.AppGroup);
         }
 
         // GET: api/Admins/5
