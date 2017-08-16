@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -241,22 +243,57 @@
     <Compile Include="Content\Controllers\AccountController.cs" />
     <Compile Include="Content\Controllers\AdminsController.cs" />
     <Compile Include="Content\Controllers\AppGroupsController.cs" />
+    <Compile Include="Content\Controllers\AppTypesController.cs" />
     <Compile Include="Content\Controllers\HomeController.cs" />
+    <Compile Include="Content\Controllers\MVC\AdminsController.cs" />
+    <Compile Include="Content\Controllers\MVC\ApplicationsController.cs" />
+    <Compile Include="Content\Controllers\MVC\EnvironmentsController.cs" />
+    <Compile Include="Content\Controllers\MVC\OnBoradsController.cs" />
+    <Compile Include="Content\Controllers\TenantsController.cs" />
     <Compile Include="Content\Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708031123186_Onboard.cs" />
-    <Compile Include="Migrations\201708031123186_Onboard.Designer.cs">
-      <DependentUpon>201708031123186_Onboard.cs</DependentUpon>
+    <Compile Include="Migrations\201708110905225_AugustEle.cs" />
+    <Compile Include="Migrations\201708110905225_AugustEle.Designer.cs">
+      <DependentUpon>201708110905225_AugustEle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708110919124_AugustEle1.cs" />
+    <Compile Include="Migrations\201708110919124_AugustEle1.Designer.cs">
+      <DependentUpon>201708110919124_AugustEle1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708151052402_OnBorad.cs" />
+    <Compile Include="Migrations\201708151052402_OnBorad.Designer.cs">
+      <DependentUpon>201708151052402_OnBorad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708151055040_OnBorad1.cs" />
+    <Compile Include="Migrations\201708151055040_OnBorad1.Designer.cs">
+      <DependentUpon>201708151055040_OnBorad1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\AetherWorkflow.cs" />
+    <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AppGroup.cs" />
+    <Compile Include="Models\Application.cs" />
+    <Compile Include="Models\ApplicationContext.cs" />
+    <Compile Include="Models\AppType.cs" />
+    <Compile Include="Models\Counter.cs" />
+    <Compile Include="Models\CounterInstance.cs" />
+    <Compile Include="Models\Environment.cs" />
+    <Compile Include="Models\EnvironmentContext.cs" />
+    <Compile Include="Models\IcmRouting.cs" />
+    <Compile Include="Models\IcmSubscription.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\OnboardServiceContext.cs" />
+    <Compile Include="Models\Incident.cs" />
+    <Compile Include="Models\AdminManageContext.cs" />
+    <Compile Include="Models\OnBorad.cs" />
+    <Compile Include="Models\OnBoradContext.cs" />
+    <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\Threshold.cs" />
+    <Compile Include="Models\WorkflowRecurrence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -266,6 +303,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\SentryStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -306,6 +344,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\metisMenu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -325,6 +364,22 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Applications\Create.cshtml" />
+    <Content Include="Views\Applications\Delete.cshtml" />
+    <Content Include="Views\Applications\Details.cshtml" />
+    <Content Include="Views\Applications\Edit.cshtml" />
+    <Content Include="Views\Applications\Index.cshtml" />
+    <Content Include="Views\Environments\Create.cshtml" />
+    <Content Include="Views\Environments\Delete.cshtml" />
+    <Content Include="Views\Environments\Details.cshtml" />
+    <Content Include="Views\Environments\Edit.cshtml" />
+    <Content Include="Views\Environments\Index.cshtml" />
+    <Content Include="Views\OnBorads\Create.cshtml" />
+    <Content Include="Views\OnBorads\Delete.cshtml" />
+    <Content Include="Views\OnBorads\Details.cshtml" />
+    <Content Include="Views\OnBorads\Edit.cshtml" />
+    <Content Include="Views\OnBorads\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,15 +396,28 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708031123186_Onboard.resx">
-      <DependentUpon>201708031123186_Onboard.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708110905225_AugustEle.resx">
+      <DependentUpon>201708110905225_AugustEle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708110919124_AugustEle1.resx">
+      <DependentUpon>201708110919124_AugustEle1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708151052402_OnBorad.resx">
+      <DependentUpon>201708151052402_OnBorad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708151055040_OnBorad1.resx">
+      <DependentUpon>201708151055040_OnBorad1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

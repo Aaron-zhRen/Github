@@ -1,74 +1,12 @@
-﻿@section scripts {
-    @Scripts.Render("~/bundles/app")
-}
+﻿
 
-<div class="page-header">
-    <h1>OnboardService</h1>
-</div>
+<h1>Sentry</h1>
+<h1 id="h_what-is-sentry-service">What is Sentry service?</h1>
+<p>Sentry is a platform for monitoring and alerting on jobs/workflows/databases, including jobs/workflows based on DWC(Data Warehouse Controller, which is an infrastructure for managing multiple interdependent recurring distributed processes in a data warehouse) and other Adhoc watchdogs. Sentry provides a powerful dependency tool based on DWC to help probe root cause of an alert, then notifies alert to OCE by ICM escalation or emails. </p>
+<p>Sentry covers specific scenarios that fit for individual teams and not covered by DQP or other monitoring systems, so that it can not only monitor DWC scheduled job or workflow, but also deal with Adhoc scenarios. You can write your customized watchdog, send the counter to Sentry to establish a monitor for jobs/workflows/databases. For long term, Data Assurance Team will converge existing products to provide a unified, reliable and flexible data quality monitoring system. </p>
+<h1 id="h_what-can-i-do-with-sentry-service">What can I do with Sentry service?</h1>
+<p>If you want to monitor your DWC job status and DWC workflow health, Sentry can provide help on this and save your effort. What you need to do is to <a href="/documentation/documentation/Onboarding-New-Applications-to-Monitor">onboard your application</a> on Sentry and fill in the configuration, then you will receive email notification or ICM escalation when alert fires. </p>
+<p>For non-DWC workflows, you can write your own <a href="/documentation/documentation/Adhoc-watchdogs">Adhoc watchdog</a> and send counters to Sentry to enable monitoring. </p>
 
-<div class="row">
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Admins</h2>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: admins">
-                    <li>
-                        <strong><span data-bind="text: TenantName"></span></strong>: <span data-bind="text: IcmName"></span>
-                        <small><a href="#" data-bind="click: $parent.getAdminDetail">Details</a></small>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
-    </div>
-    <!--ko if:detail()-->
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Detail</h2>
-            </div>
-            <ul class="list-unstyled" data-bind="foreach: detail">
-                <li>
-                    <strong><span data-bind="text: TenantName"></span></strong>: <span data-bind="text: IcmName"></span>
-                    <small><a href="#" data-bind="click: $parent.getAdminDetail">Details</a></small>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!--/ko-->
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Add Admin</h2>
-            </div>
-
-            <div class="panel-body">
-                <form class="form-horizontal" data-bind="submit: addAdmin">
-                    <div class="form-group">
-                        <label for="inputAppGroup" class="col-sm-2 control-label">AppGroup</label>
-                        <div class="col-sm-10">
-                            <select data-bind="options:appgroups, optionsText: 'getAppGroups', value: newAdmin.AppGroup"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group" data-bind="with: newAdmin">
-                        <label for="inputTenant" class="col-sm-2 control-label">TenantName</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputTitle" data-bind="value:TenantName" />
-                        </div>
-
-                        <label for="inputIcmName" class="col-sm-2 control-label">IcmName</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputYear" data-bind="value:IcmName" />
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

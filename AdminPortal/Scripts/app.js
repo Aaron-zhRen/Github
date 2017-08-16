@@ -5,13 +5,16 @@
     self.detail = ko.observable();
     self.appgroups = ko.observableArray();
     self.newAdmin = {
-        TenantName: ko.observable(),
-        IcmName: ko.observable(),
-        AppGroup: ko.observable
-    }
+        Tenant: ko.observable(),
+        TenantId: ko.observable(),
+        AppGroup: ko.observable(),
+        AppGroupId: ko.observable(),
+        AppType: ko.observable(),
+        AppTypeId:ko.observable(),
+   }
 
     var adminsUri = '/api/admins/';
-    var appgroupsUri = '/api/appgroups/';
+    var appgroupsUri = '/api/appgroups';
 
     function ajaxHelper(uri, method, data) {
         self.error(''); // Clear error message
@@ -33,7 +36,7 @@
     }
 
     self.getAdminDetail = function (item) {
-        ajaxHelper(adminsUri + item.Id, 'GET').done(function (data) {
+        ajaxHelper(adminsUri + item.AdminId, 'GET').done(function (data) {
             self.detail(data);
         });
     }
@@ -47,9 +50,9 @@
 
     self.addAdmin = function (formElement) {
         var admin = {
-            //AppGroup: self.newAdmin.AppGroup().Id,
-            TenantName: self.newAdmin.TenantName(),
-            IcmName: self.newAdmin.IcmName(),
+            Tenant: self.newAdmin.Tenant().TenantName,
+            AppGroup: self.newAdmin.AppGroup().AppGroupName,
+            AppType: self.newAdmin.AppType().Type,
           
         };
 

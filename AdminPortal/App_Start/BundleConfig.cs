@@ -22,11 +22,19 @@ namespace AdminPortal
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/SentryStyle.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
               "~/Scripts/knockout-{version}.js",
-              "~/Scripts/app.js"));
+              "~/Scripts/app.js",
+               "~/Scripts/metisMenu.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/metisMenu").Include(
+              "~/Scripts/knockout-{version}.js",
+              "~/Scripts/metisMenu.js"));
+
+
         }
     }
 }

@@ -8,10 +8,13 @@ namespace AdminPortal.Models
 {
     public class Admin
     {
+        [Key]
         public int AdminId { get; set; }
-        public string TenantName { get; set; }
-        public string IcmName { get; set; }
-        public int? AppGroupId { get; set; }
+        public Guid TenantId { get; set; }
+        public Tenant Tenant { get; set; }
+        public int AppGroupId { get; set; }
         public AppGroup AppGroup { get; set; }
+        public int AppTypeId { get; set; }
+        public AppType AppType { get; set; }
     }
 }

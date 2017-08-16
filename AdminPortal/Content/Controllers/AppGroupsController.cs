@@ -15,7 +15,7 @@ namespace AdminPortal.Controllers
 {
     public class AppGroupsController : ApiController
     {
-        private OnboardServiceContext db = new OnboardServiceContext();
+        private AdminManageContext db = new AdminManageContext();
 
         // GET: api/AppGroups
         public IQueryable<AppGroup> GetAppGroups()

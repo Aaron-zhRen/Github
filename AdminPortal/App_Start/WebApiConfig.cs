@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.Dispatcher;
+using System.Reflection;
 
 namespace AdminPortal
 {
@@ -12,6 +14,9 @@ namespace AdminPortal
     {
         public static void Register(HttpConfiguration config)
         {
+            //solve the problem apicontroller and mvccontroller can not be the same name
+            //var suffix = typeof(DefaultHttpControllerSelector).GetField("ControllerSuffix", BindingFlags.Static | BindingFlags.Public);
+            //if (suffix != null) suffix.SetValue(null, "ApiController");
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();

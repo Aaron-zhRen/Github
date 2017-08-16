@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AdminPortal.Models;
+using System.Web.Mvc;
 
 namespace AdminPortal.Controllers
 {
     public class AdminsController : ApiController
     {
-        private OnboardServiceContext db = new OnboardServiceContext();
+        private AdminManageContext db = new AdminManageContext();
+
+
 
         // GET: api/Admins
         public IQueryable<Admin> GetAdmins()
         {
-            return db.Admins.Include(b => b.AppGroup);
+            return db.Admins;
         }
 
         // GET: api/Admins/5
