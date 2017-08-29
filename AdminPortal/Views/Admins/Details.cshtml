@@ -1,0 +1,43 @@
+﻿@model AdminPortal.Models.Admin
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Admin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AppGroup.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppGroup.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppType.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppType.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tenant.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tenant.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

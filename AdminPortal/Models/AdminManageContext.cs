@@ -18,7 +18,7 @@ namespace AdminPortal.Models
         public AdminManageContext() : base("name=OnboardServiceContext")
         {
         }
-
+       
         public System.Data.Entity.DbSet<AdminPortal.Models.Admin> Admins { get; set; }
         public System.Data.Entity.DbSet<AdminPortal.Models.AppType> AppTypes { get; set; }
         public System.Data.Entity.DbSet<AdminPortal.Models.AppGroup> AppGroups { get; set; }

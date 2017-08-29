@@ -1,94 +1,46 @@
-﻿@model AdminPortal.Models.Admin
+﻿@model IEnumerable<AdminPortal.Models.Admin>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section scripts {
-    @Scripts.Render("~/bundles/app")
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppGroup.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppType.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tenant.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppGroup.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppType.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tenant.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AdminId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AdminId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AdminId })
+        </td>
+    </tr>
 }
 
-
-
-<div class="form-horizontal">
-
-    @*<div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Admins</h2>
-            </div>
-            <div class="panel-body">
-                <ul class="list-unstyled" data-bind="foreach: admins">
-                    <li>
-                        <strong><span data-bind="text: TenantName"></span></strong>
-                        <small><a href="#" data-bind="click: $parent.getAdminDetail">Details</a></small>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
-    </div>
-    <!--ko if:detail()-->
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Detail</h2>
-            </div>
-            <table class="table">
-                <tr><td>TenantName</td><td data-bind="text: detail().TenantName"></td></tr>
-                <tr><td>AppType</td><td data-bind="text: detail().Type"></td></tr>
-                <tr><td>AppGroupId</td><td data-bind="text: detail().AppGroupId"></td></tr>
-            </table>
-        </div>
-    </div>
-    <!--/ko-->*@
-
-    <div class="col-md-12">
-        <div class="glyphicon-adjust">
-            <div class="panel-heading">
-                <h2 class="panel-title">Add Team</h2>
-            </div>
-
-            <div class="panel-body">
-                <form class="form-inline" data-bind="submit: addAdmin">
-                    @*<div class="form-group">
-                        <label for="inputAppGroup" class="col-sm-2 control-label">AppGroup</label>
-                        <div class="col-sm-10">
-                            <select data-bind="options:appgroups, optionsText: 'AppGroupName', value: newAdmin.AppGroup"></select>
-                        </div>
-                    </div>*@
-
-                    <div class="form-group" data-bind="with: newAdmin">
-
-                        <div class="form-horizontal">
-                            <label for="inputTenantName" class="col-sm-2 control-label">TenantName</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="col-sm-offset-3 form-control" id="inputTenantName" data-bind="value:Tenant" />
-                            </div>
-
-                       </div>
-                        <div class="form-horizontal">
-                            <label for="inputAppgroupName" class="col-sm-2 control-label">AppgroupName</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="col-sm-offset-3 form-control" id="inputAppgroupName" data-bind="value:AppGroup" />
-                            </div>
-                            
-                        </div>
-                        <div class="form-horizontal">
-                            <label for="inputAppType" class="col-sm-2 control-label">AppTypeName</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="col-sm-offset-3 form-control" id="inputAppTypeName" data-bind="value:AppType" />
-                            </div>
-                           
-                        </div>
-                    </div>
-                   
-                </form>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default">Save</button>
-                    <button type="submit" class="btn btn-default">Cancle</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</table>

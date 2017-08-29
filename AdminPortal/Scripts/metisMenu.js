@@ -9,20 +9,24 @@
 
 (function ($, window, document, undefined) {
 
+
+    console.log("function : begin")
+
+
     var pluginName = "metisMenu",
         defaults = {
             toggle: true,
             doubleTapToGo: false
         };
-
     function Plugin(element, options) {
         this.element = $(element);
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
+
+        console.log("function : Plugin-init")
         this.init();
     }
-
     Plugin.prototype = {
         init: function () {
 
@@ -33,6 +37,8 @@
             if (this.isIE() <= 9) {
                 $this.find("li.active").has("ul").children("ul").collapse("show");
                 $this.find("li").not(".active").has("ul").children("ul").collapse("hide");
+
+                console.log("function : Plugin-if")
             } else {
                 $this.find("li.active").has("ul").children("ul").addClass("collapse in");
                 $this.find("li").not(".active").has("ul").children("ul").addClass("collapse");
@@ -106,7 +112,6 @@
         }
 
     };
-
     $.fn[pluginName] = function (options) {
         this.each(function () {
             var el = $(this);
@@ -117,6 +122,11 @@
         });
         return this;
     };
-   
+
+    $(document).ready(function () {
+
+        console.log("function : begin-ready")
+        new Plugin(this)
+    })
 
 })(jQuery, window, document);

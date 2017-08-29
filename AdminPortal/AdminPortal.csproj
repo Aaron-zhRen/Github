@@ -246,9 +246,12 @@
     <Compile Include="Content\Controllers\AppTypesController.cs" />
     <Compile Include="Content\Controllers\HomeController.cs" />
     <Compile Include="Content\Controllers\MVC\AdminsController.cs" />
+    <Compile Include="Content\Controllers\MVC\AppGroupsController.cs" />
     <Compile Include="Content\Controllers\MVC\ApplicationsController.cs" />
     <Compile Include="Content\Controllers\MVC\EnvironmentsController.cs" />
+    <Compile Include="Content\Controllers\MVC\IcmSubscriptionsController.cs" />
     <Compile Include="Content\Controllers\MVC\OnBoradsController.cs" />
+    <Compile Include="Content\Controllers\MVC\TenantsController.cs" />
     <Compile Include="Content\Controllers\TenantsController.cs" />
     <Compile Include="Content\Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -277,6 +280,7 @@
     <Compile Include="Models\AetherWorkflow.cs" />
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AppGroup.cs" />
+    <Compile Include="Models\AppGroupsContext.cs" />
     <Compile Include="Models\Application.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\AppType.cs" />
@@ -285,6 +289,7 @@
     <Compile Include="Models\Environment.cs" />
     <Compile Include="Models\EnvironmentContext.cs" />
     <Compile Include="Models\IcmRouting.cs" />
+    <Compile Include="Models\IcmsContext.cs" />
     <Compile Include="Models\IcmSubscription.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Incident.cs" />
@@ -292,6 +297,7 @@
     <Compile Include="Models\OnBorad.cs" />
     <Compile Include="Models\OnBoradContext.cs" />
     <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\TenantsContext.cs" />
     <Compile Include="Models\Threshold.cs" />
     <Compile Include="Models\WorkflowRecurrence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -334,6 +340,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\SentryStyleDetail.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -364,7 +371,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="Views\Admins\Index.cshtml" />
     <Content Include="Views\Applications\Create.cshtml" />
     <Content Include="Views\Applications\Delete.cshtml" />
     <Content Include="Views\Applications\Details.cshtml" />
@@ -380,6 +386,26 @@
     <Content Include="Views\OnBorads\Details.cshtml" />
     <Content Include="Views\OnBorads\Edit.cshtml" />
     <Content Include="Views\OnBorads\Index.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Tenants\Create.cshtml" />
+    <Content Include="Views\Tenants\Delete.cshtml" />
+    <Content Include="Views\Tenants\Details.cshtml" />
+    <Content Include="Views\Tenants\Edit.cshtml" />
+    <Content Include="Views\Tenants\Index.cshtml" />
+    <Content Include="Views\AppGroups\Create.cshtml" />
+    <Content Include="Views\AppGroups\Delete.cshtml" />
+    <Content Include="Views\AppGroups\Details.cshtml" />
+    <Content Include="Views\AppGroups\Edit.cshtml" />
+    <Content Include="Views\AppGroups\Index.cshtml" />
+    <Content Include="Views\IcmSubscriptions\Create.cshtml" />
+    <Content Include="Views\IcmSubscriptions\Delete.cshtml" />
+    <Content Include="Views\IcmSubscriptions\Details.cshtml" />
+    <Content Include="Views\IcmSubscriptions\Edit.cshtml" />
+    <Content Include="Views\IcmSubscriptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

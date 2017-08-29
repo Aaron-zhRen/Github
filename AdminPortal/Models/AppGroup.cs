@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.InteropServices;
 
     public class AppGroup
     {
@@ -9,7 +10,6 @@
         public Guid TenantId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
         /// <summary>
         /// Foreign keys relation ship
         /// </summary>

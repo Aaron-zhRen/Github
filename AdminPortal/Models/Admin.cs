@@ -10,7 +10,7 @@ namespace AdminPortal.Models
     {
         [Key]
         public int AdminId { get; set; }
-        public Guid TenantId { get; set; }
+        public Guid? TenantId { get; set; }
         public Tenant Tenant { get; set; }
         public int AppGroupId { get; set; }
         public AppGroup AppGroup { get; set; }

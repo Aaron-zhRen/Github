@@ -11,13 +11,13 @@
 <body>
     <nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation" style="margin-bottom:0">
         <!-- Navigation Top-->
-        <div class="navbar-header">
+        <div class="navbar-header" style="padding-top:10px;height:70px">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("Sentry", "Index", "Home", new { area = "" }, new { @class = "navbar-brand " })
+             @Html.ActionLink("Sentry", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fa-fw", @style = "color:#ffffff;font-size:50px" })
         </div>
         <div class="navbar-collapse collapse ">
             <ul class="nav navbar-nav navbar-right">
@@ -26,34 +26,39 @@
         </div>
         <!-- Navigation Leftside-->
     </nav>
-    <nav class="navbar-default navbar-inverse" role="navigation" >
-        <div class="navbar-default sidebar col-lg-1" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage<span class="fa arrow"></span></a>
-                        <!-- /.nav-second-level -->
-                        <ul class="nav">
-                            <li><a href="~/Admins/Index">Teams</a></li>
-                            <li><a href="~/Applications/Index">Applications</a></li>
-                            <li><a href="~/Environments/Index">Environments</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        @Html.ActionLink("OnBoard", "Index", "OnBorads")
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container body-content col-lg-offset-1">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Sentry Application</p>
-        </footer>
+    <div class="row" style="height:100%">
+        <div class="col-lg-1" style="height:100%;background:#000000;padding-top:10px">
+            <nav class="navbar-default navbar-inverse" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="#"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:25px">Manage</i></a>
+                                <!-- /.nav-second-level -->
+                                <ul class="nav">
+                                    <li><a href="~/Tenants/Index" style="color:#ffffff">Tenans</a></li>
+                                    <li><a href="~/Appgroups/Index" style="color:#ffffff">Appgroups</a></li>
+                                    <li><a href="~/Environments/Index" style="color:#ffffff">Environments</a></li>
+                                    <li><a href="~/IcmSubscriptions/Index" style="color:#ffffff">Icms</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="~/OnBorads/Index"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:25px">OnBoard</i></a>
+                            </li>
+                        </ul>
+                    </div>
+            </nav>
+        </div>
+        <div class="container body-content col-lg-offset-1">
+            @RenderBody()
+            <hr />
+        </div>
+
     </div>
+
+    <footer class="col-lg-2 col-lg-offset-1">
+        <p>&copy; @DateTime.Now.Year - Sentry Application</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
