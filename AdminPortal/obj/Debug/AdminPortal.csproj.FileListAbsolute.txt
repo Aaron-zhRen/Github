@@ -181,9 +181,6 @@ D:\TaskforVS2015\Github\AdminPortal\bin\Microsoft.Owin.Security.MicrosoftAccount
 D:\TaskforVS2015\Github\AdminPortal\bin\System.Web.Http.Owin.xml
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.dll
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.pdb
-D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.AugustEle.resources
+D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.InitialCreate.resources
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.csproj.GenerateResource.Cache
-D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.AugustEle1.resources
-D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.OnBorad.resources
-D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.OnBorad1.resources
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.csprojResolveAssemblyReference.cache

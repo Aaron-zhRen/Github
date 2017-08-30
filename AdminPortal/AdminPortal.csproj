@@ -240,38 +240,26 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Content\Controllers\AccountController.cs" />
-    <Compile Include="Content\Controllers\AdminsController.cs" />
-    <Compile Include="Content\Controllers\AppGroupsController.cs" />
-    <Compile Include="Content\Controllers\AppTypesController.cs" />
-    <Compile Include="Content\Controllers\HomeController.cs" />
-    <Compile Include="Content\Controllers\MVC\AdminsController.cs" />
-    <Compile Include="Content\Controllers\MVC\AppGroupsController.cs" />
-    <Compile Include="Content\Controllers\MVC\ApplicationsController.cs" />
-    <Compile Include="Content\Controllers\MVC\EnvironmentsController.cs" />
-    <Compile Include="Content\Controllers\MVC\IcmSubscriptionsController.cs" />
-    <Compile Include="Content\Controllers\MVC\OnBoradsController.cs" />
-    <Compile Include="Content\Controllers\MVC\TenantsController.cs" />
-    <Compile Include="Content\Controllers\TenantsController.cs" />
-    <Compile Include="Content\Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AppGroupsController.cs" />
+    <Compile Include="Controllers\AppTypesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MVC\AdminsController.cs" />
+    <Compile Include="Controllers\MVC\AppGroupsController.cs" />
+    <Compile Include="Controllers\MVC\ApplicationsController.cs" />
+    <Compile Include="Controllers\MVC\EnvironmentsController.cs" />
+    <Compile Include="Controllers\MVC\IcmSubscriptionsController.cs" />
+    <Compile Include="Controllers\MVC\OnBoradsController.cs" />
+    <Compile Include="Controllers\MVC\TenantsController.cs" />
+    <Compile Include="Controllers\TenantsController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708110905225_AugustEle.cs" />
-    <Compile Include="Migrations\201708110905225_AugustEle.Designer.cs">
-      <DependentUpon>201708110905225_AugustEle.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708110919124_AugustEle1.cs" />
-    <Compile Include="Migrations\201708110919124_AugustEle1.Designer.cs">
-      <DependentUpon>201708110919124_AugustEle1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708151052402_OnBorad.cs" />
-    <Compile Include="Migrations\201708151052402_OnBorad.Designer.cs">
-      <DependentUpon>201708151052402_OnBorad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708151055040_OnBorad1.cs" />
-    <Compile Include="Migrations\201708151055040_OnBorad1.Designer.cs">
-      <DependentUpon>201708151055040_OnBorad1.cs</DependentUpon>
+    <Compile Include="Migrations\201708300351006_InitialCreate.cs" />
+    <Compile Include="Migrations\201708300351006_InitialCreate.Designer.cs">
+      <DependentUpon>201708300351006_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -422,21 +410,12 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708110905225_AugustEle.resx">
-      <DependentUpon>201708110905225_AugustEle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708110919124_AugustEle1.resx">
-      <DependentUpon>201708110919124_AugustEle1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708151052402_OnBorad.resx">
-      <DependentUpon>201708151052402_OnBorad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708151055040_OnBorad1.resx">
-      <DependentUpon>201708151055040_OnBorad1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <EmbeddedResource Include="Migrations\201708300351006_InitialCreate.resx">
+      <DependentUpon>201708300351006_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

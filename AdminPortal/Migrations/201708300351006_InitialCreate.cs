@@ -3,10 +3,23 @@ namespace AdminPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AugustEle : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.AppGroups",
+                c => new
+                    {
+                        AppGroupId = c.Int(nullable: false, identity: true),
+                        TenantId = c.Guid(nullable: false),
+                        Name = c.String(),
+                        Description = c.String(),
+                    })
+                .PrimaryKey(t => t.AppGroupId)
+                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: false)
+                .Index(t => t.TenantId);
+            
             CreateTable(
                 "dbo.Applications",
                 c => new
@@ -21,6 +34,7 @@ namespace AdminPortal.Migrations
                         AppTypeId = c.Int(nullable: false),
                         AppGroupId = c.Int(nullable: false),
                         IcmRoutingId = c.Int(),
+                        TenantId = c.Int(nullable: false),
                         ScheduleId = c.String(),
                         DateParameterName = c.String(),
                         DatePattern = c.String(),
@@ -33,64 +47,17 @@ namespace AdminPortal.Migrations
                         WorkflowRecurrence_RelativeInterval = c.Int(),
                         WorkflowRecurrence_DayOfWeek = c.Int(),
                         WorkflowRecurrence_DayOfMonth = c.Int(),
+                        Tenant_TenantId = c.Guid(),
                     })
                 .PrimaryKey(t => t.AppId)
                 .ForeignKey("dbo.AppGroups", t => t.AppGroupId, cascadeDelete: true)
-                .ForeignKey("dbo.IcmRoutings", t => t.IcmRoutingId)
                 .ForeignKey("dbo.AppTypes", t => t.AppTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.IcmRoutings", t => t.IcmRoutingId)
+                .ForeignKey("dbo.Tenants", t => t.Tenant_TenantId)
                 .Index(t => t.AppTypeId)
                 .Index(t => t.AppGroupId)
-                .Index(t => t.IcmRoutingId);
-            
-            CreateTable(
-                "dbo.AppGroups",
-                c => new
-                    {
-                        AppGroupId = c.Int(nullable: false, identity: true),
-                        TenantId = c.Guid(nullable: false),
-                        Name = c.String(),
-                        Description = c.String(),
-                    })
-                .PrimaryKey(t => t.AppGroupId)
-                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
-                .Index(t => t.TenantId);
-            
-            CreateTable(
-                "dbo.Tenants",
-                c => new
-                    {
-                        TenantId = c.Guid(nullable: false),
-                        Name = c.String(),
-                        Description = c.String(),
-                        Owners = c.String(),
-                    })
-                .PrimaryKey(t => t.TenantId);
-            
-            CreateTable(
-                "dbo.IcmSubscriptions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        TenantId = c.Guid(nullable: false),
-                        ServiceName = c.String(),
-                        ConnectorId = c.Guid(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
-                .Index(t => t.TenantId);
-            
-            CreateTable(
-                "dbo.IcmRoutings",
-                c => new
-                    {
-                        IcmRoutingId = c.Int(nullable: false, identity: true),
-                        IcmSubscriptionId = c.Int(nullable: false),
-                        RoutingId = c.String(),
-                        CorrelationId = c.String(),
-                    })
-                .PrimaryKey(t => t.IcmRoutingId)
-                .ForeignKey("dbo.IcmSubscriptions", t => t.IcmSubscriptionId, cascadeDelete: true)
-                .Index(t => t.IcmSubscriptionId);
+                .Index(t => t.IcmRoutingId)
+                .Index(t => t.Tenant_TenantId);
             
             CreateTable(
                 "dbo.AppTypes",
@@ -224,10 +191,52 @@ namespace AdminPortal.Migrations
                     })
                 .PrimaryKey(t => t.EnvId);
             
+            CreateTable(
+                "dbo.IcmRoutings",
+                c => new
+                    {
+                        IcmRoutingId = c.Int(nullable: false, identity: true),
+                        IcmSubscriptionId = c.Int(nullable: false),
+                        RoutingId = c.String(),
+                        CorrelationId = c.String(),
+                    })
+                .PrimaryKey(t => t.IcmRoutingId)
+                .ForeignKey("dbo.IcmSubscriptions", t => t.IcmSubscriptionId, cascadeDelete: true)
+                .Index(t => t.IcmSubscriptionId);
+            
+            CreateTable(
+                "dbo.IcmSubscriptions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        TenantId = c.Guid(nullable: false),
+                        ServiceName = c.String(),
+                        ConnectorId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
+                .Index(t => t.TenantId);
+            
+            CreateTable(
+                "dbo.Tenants",
+                c => new
+                    {
+                        TenantId = c.Guid(nullable: false),
+                        Name = c.String(),
+                        Description = c.String(),
+                        Owners = c.String(),
+                    })
+                .PrimaryKey(t => t.TenantId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Applications", "Tenant_TenantId", "dbo.Tenants");
+            DropForeignKey("dbo.IcmSubscriptions", "TenantId", "dbo.Tenants");
+            DropForeignKey("dbo.AppGroups", "TenantId", "dbo.Tenants");
+            DropForeignKey("dbo.IcmRoutings", "IcmSubscriptionId", "dbo.IcmSubscriptions");
+            DropForeignKey("dbo.Applications", "IcmRoutingId", "dbo.IcmRoutings");
             DropForeignKey("dbo.Thresholds", "EnvId", "dbo.Environments");
             DropForeignKey("dbo.CounterInstances", "EnvId", "dbo.Environments");
             DropForeignKey("dbo.Thresholds", "CounterId", "dbo.Counters");
@@ -238,11 +247,9 @@ namespace AdminPortal.Migrations
             DropForeignKey("dbo.Incidents", "AlertId", "dbo.Alerts");
             DropForeignKey("dbo.Alerts", "CounterInstanceId", "dbo.CounterInstances");
             DropForeignKey("dbo.Applications", "AppTypeId", "dbo.AppTypes");
-            DropForeignKey("dbo.IcmSubscriptions", "TenantId", "dbo.Tenants");
-            DropForeignKey("dbo.IcmRoutings", "IcmSubscriptionId", "dbo.IcmSubscriptions");
-            DropForeignKey("dbo.Applications", "IcmRoutingId", "dbo.IcmRoutings");
-            DropForeignKey("dbo.AppGroups", "TenantId", "dbo.Tenants");
             DropForeignKey("dbo.Applications", "AppGroupId", "dbo.AppGroups");
+            DropIndex("dbo.IcmSubscriptions", new[] { "TenantId" });
+            DropIndex("dbo.IcmRoutings", new[] { "IcmSubscriptionId" });
             DropIndex("dbo.Thresholds", new[] { "EnvId" });
             DropIndex("dbo.Thresholds", new[] { "CounterId" });
             DropIndex("dbo.Thresholds", new[] { "AppId" });
@@ -252,12 +259,14 @@ namespace AdminPortal.Migrations
             DropIndex("dbo.CounterInstances", new[] { "EnvId" });
             DropIndex("dbo.CounterInstances", new[] { "CounterId" });
             DropIndex("dbo.CounterInstances", new[] { "AppId" });
-            DropIndex("dbo.IcmRoutings", new[] { "IcmSubscriptionId" });
-            DropIndex("dbo.IcmSubscriptions", new[] { "TenantId" });
-            DropIndex("dbo.AppGroups", new[] { "TenantId" });
+            DropIndex("dbo.Applications", new[] { "Tenant_TenantId" });
             DropIndex("dbo.Applications", new[] { "IcmRoutingId" });
             DropIndex("dbo.Applications", new[] { "AppGroupId" });
             DropIndex("dbo.Applications", new[] { "AppTypeId" });
+            DropIndex("dbo.AppGroups", new[] { "TenantId" });
+            DropTable("dbo.Tenants");
+            DropTable("dbo.IcmSubscriptions");
+            DropTable("dbo.IcmRoutings");
             DropTable("dbo.Environments");
             DropTable("dbo.Thresholds");
             DropTable("dbo.Counters");
@@ -265,11 +274,8 @@ namespace AdminPortal.Migrations
             DropTable("dbo.Alerts");
             DropTable("dbo.CounterInstances");
             DropTable("dbo.AppTypes");
-            DropTable("dbo.IcmRoutings");
-            DropTable("dbo.IcmSubscriptions");
-            DropTable("dbo.Tenants");
-            DropTable("dbo.AppGroups");
             DropTable("dbo.Applications");
+            DropTable("dbo.AppGroups");
         }
     }
 }

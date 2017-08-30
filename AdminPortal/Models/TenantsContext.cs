@@ -20,5 +20,10 @@ namespace AdminPortal.Models
         }
 
         public System.Data.Entity.DbSet<AdminPortal.Models.Tenant> Tenants { get; set; }
+
+        public static implicit operator List<object>(TenantsContext v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
