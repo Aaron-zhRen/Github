@@ -10,47 +10,50 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using AdminPortal.Models;
+using System.Web.Mvc;
 
 namespace AdminPortal.Controllers
 {
-    public class AppGroupsController : ApiController
+    public class AdminsController : ApiController
     {
-        private AdminManageContext db = new AdminManageContext();
+        private WebPortal db = new WebPortal();
 
-        // GET: api/AppGroups
-        public IQueryable<AppGroup> GetAppGroups()
+
+
+        // GET: api/Admins
+        public IQueryable<Admin> GetAdmins()
         {
-            return db.AppGroups;
+            return db.Admins;
         }
 
-        // GET: api/AppGroups/5
-        [ResponseType(typeof(AppGroup))]
-        public async Task<IHttpActionResult> GetAppGroup(int id)
+        // GET: api/Admins/5
+        [ResponseType(typeof(Admin))]
+        public async Task<IHttpActionResult> GetAdmin(int id)
         {
-            AppGroup appGroup = await db.AppGroups.FindAsync(id);
-            if (appGroup == null)
+            Admin admin = await db.Admins.FindAsync(id);
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            return Ok(appGroup);
+            return Ok(admin);
         }
 
-        // PUT: api/AppGroups/5
+        // PUT: api/Admins/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAppGroup(int id, AppGroup appGroup)
+        public async Task<IHttpActionResult> PutAdmin(int id, Admin admin)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != appGroup.AppGroupId)
+            if (id != admin.AdminId)
             {
                 return BadRequest();
             }
 
-            db.Entry(appGroup).State = EntityState.Modified;
+            db.Entry(admin).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +61,7 @@ namespace AdminPortal.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppGroupExists(id))
+                if (!AdminExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +74,35 @@ namespace AdminPortal.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/AppGroups
-        [ResponseType(typeof(AppGroup))]
-        public async Task<IHttpActionResult> PostAppGroup(AppGroup appGroup)
+        // POST: api/Admins
+        [ResponseType(typeof(Admin))]
+        public async Task<IHttpActionResult> PostAdmin(Admin admin)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.AppGroups.Add(appGroup);
+            db.Admins.Add(admin);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = appGroup.AppGroupId }, appGroup);
+            return CreatedAtRoute("DefaultApi", new { id = admin.AdminId }, admin);
         }
 
-        // DELETE: api/AppGroups/5
-        [ResponseType(typeof(AppGroup))]
-        public async Task<IHttpActionResult> DeleteAppGroup(int id)
+        // DELETE: api/Admins/5
+        [ResponseType(typeof(Admin))]
+        public async Task<IHttpActionResult> DeleteAdmin(int id)
         {
-            AppGroup appGroup = await db.AppGroups.FindAsync(id);
-            if (appGroup == null)
+            Admin admin = await db.Admins.FindAsync(id);
+            if (admin == null)
             {
                 return NotFound();
             }
 
-            db.AppGroups.Remove(appGroup);
+            db.Admins.Remove(admin);
             await db.SaveChangesAsync();
 
-            return Ok(appGroup);
+            return Ok(admin);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +114,9 @@ namespace AdminPortal.Controllers
             base.Dispose(disposing);
         }
 
-        private bool AppGroupExists(int id)
+        private bool AdminExists(int id)
         {
-            return db.AppGroups.Count(e => e.AppGroupId == id) > 0;
+            return db.Admins.Count(e => e.AdminId == id) > 0;
         }
     }
 }

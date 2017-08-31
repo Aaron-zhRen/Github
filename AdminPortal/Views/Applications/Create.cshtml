@@ -5,72 +5,82 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form >
-    <div class="form-group">
-        <label for="exampleInputEmail1">Application</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Application">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">TenantName</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="TenantName">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">AppGroupName</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="AppGroupName">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">AppType</label><br/>
-        @*<input type="email" class="form-control" id="exampleInputEmail1" placeholder="AppType">*@
-        <div class="btn-group ">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Action <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">AppType1</a></li>
-                <li><a href="#">AppType1</a></li>
-                <li><a href="#">AppType1</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">AppNew</a></li>
-            </ul>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default col-lg-9" style="padding-left:0px;padding-right:0px">
+        <div class="panel-heading" style="background:#000000;font-style:inherit">
+            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Add Appcication</i>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <!-- ApplicationName -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- Email -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AlertEmails, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AlertEmails, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AlertEmails, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- TenantName -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenantId, "TenantName", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("TenantId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- AggGroupName -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AppGroupId, "AppGroupName", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("AppGroupId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AppGroupId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- Owner -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tenant.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Tenant.Owners, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Tenant.Owners, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- EnableMonitor -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- Icm -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IcmRoutingId, "AppGroupName", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("AppGroupId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AppGroupId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer list-inline" style="float:right">
+            <input type="submit" value="Create" class="btn btn-default" />
+            <a href="~/AppGroups/Index"><input type="button" value="cancel" class="btn btn-default" /></a>
         </div>
     </div>
-    
-    <div class="form-group modal-footer">
-        <button type="submit" class="btn btn-default">Save</button>
-        <button type="submit" class="btn btn-default">Cancle</button>
-    </div>
-    
-</form>
-@*<div class="panel col-lg-10">
-    <div class="panel-heading alert-info">
-        <h4>Add Application</h4>
-    </div>
-    <div class="panel-body">
-        <div class="col-md-10">
-            <abbr  title ="this is the application attribute", class= "col-lg-3">Application</abbr>
-            <input class ="col-lg-6",style="user-select:element" />
-        </div><div class="col-md-10">
-            <label class= "col-lg-3">Email</label>
-            <input class ="col-lg-6",style="user-select:element" />
-        </div><div class="col-md-10">
-            <label class= "col-lg-3">TenantName</label>
-            <input class ="col-lg-6",style="user-select:element" />
-        </div><div class="col-md-10">
-            <label class= "col-lg-3">AppGroupName</label>
-            <input class ="col-lg-6",style="user-select:element" />
-        </div><div class="col-md-10">
-            <label class ="col-lg-3",>AppType</label>
-            <input class ="col-lg-6",style="user-select:element" />
-        </div>
-    </div>
-    <div class="panel-footer">
-        <div class="col-lg-4">
-            <input class="col-lg-1 col-lg-3 btn btn-default",type="submit" value="Save"/>
-            <input class="col-lg-3 col-lg-4 btn btn-default",type="submit" value="cancle"/>
-        </div>
-    </div>
-</div>*@
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

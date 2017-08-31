@@ -13,15 +13,14 @@ namespace AdminPortal.Content.Controllers.MVC
 {
     public class AppGroupsController : Controller
     {
-        private AppGroupsContext db = new AppGroupsContext();
-        private TenantsContext TenantsContextDb = new TenantsContext();
+        private WebPortal db = new WebPortal();
+        
 
                
         // GET: AppGroups
         public async Task<ActionResult> Index()
         {
-            var appGroups = db.AppGroups;
-            //.Include(a => a.Tenant)
+            var appGroups = db.AppGroups.Include(a => a.Tenant);
             return View(await appGroups.ToListAsync());
         }
 
@@ -43,36 +42,21 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: AppGroups/Create
         public ActionResult Create()
         {
-            ViewBag.TenantId = new SelectList(TenantsContextDb.Tenants, "TenantId", "Name");
-            //TenantNamelist();
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
             return View();
         }
 
-        ////Get the Tenants list for AppGroup to choose
-        //public ActionResult TenantNamelist()
-        //{
-        //    List<SelectListItem> items = new List<SelectListItem>();
-        //    IEnumerable<Tenant> Tenants = TenantsContextDb.Tenants;
-        //    foreach (var Tenant in Tenants)
-        //    {
-        //        items.Add(new SelectListItem { Text = Tenant.TenantId.ToString(), Value = Tenant.TenantId.ToString() });
-        //    }
-        //    Console.WriteLine(items);
-        //    ViewData["TenantsList"] = items;
-        //    return View();
-        //}
-
-
-
+      
         // POST: AppGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AppGroupId,TenantId,Name,Description")] AppGroup appGroup)
+        public async Task<ActionResult> Create([Bind(Include ="AppGroupId,TenantId,Name,Description")] AppGroup appGroup)
         {
             if (ModelState.IsValid)
             {
+                
                 db.AppGroups.Add(appGroup);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

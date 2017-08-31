@@ -3,10 +3,27 @@ namespace AdminPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Webportal : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Admins",
+                c => new
+                    {
+                        AdminId = c.Int(nullable: false, identity: true),
+                        TenantId = c.Guid(),
+                        AppGroupId = c.Int(nullable: false),
+                        AppTypeId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.AdminId)
+                .ForeignKey("dbo.AppGroups", t => t.AppGroupId, cascadeDelete: true)
+                .ForeignKey("dbo.AppTypes", t => t.AppTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.Tenants", t => t.TenantId)
+                .Index(t => t.TenantId)
+                .Index(t => t.AppGroupId)
+                .Index(t => t.AppTypeId);
+            
             CreateTable(
                 "dbo.AppGroups",
                 c => new
@@ -17,7 +34,7 @@ namespace AdminPortal.Migrations
                         Description = c.String(),
                     })
                 .PrimaryKey(t => t.AppGroupId)
-                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: false)
+                .ForeignKey("dbo.Tenants", t => t.TenantId, cascadeDelete: true)
                 .Index(t => t.TenantId);
             
             CreateTable(
@@ -232,6 +249,9 @@ namespace AdminPortal.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Admins", "TenantId", "dbo.Tenants");
+            DropForeignKey("dbo.Admins", "AppTypeId", "dbo.AppTypes");
+            DropForeignKey("dbo.Admins", "AppGroupId", "dbo.AppGroups");
             DropForeignKey("dbo.Applications", "Tenant_TenantId", "dbo.Tenants");
             DropForeignKey("dbo.IcmSubscriptions", "TenantId", "dbo.Tenants");
             DropForeignKey("dbo.AppGroups", "TenantId", "dbo.Tenants");
@@ -264,6 +284,9 @@ namespace AdminPortal.Migrations
             DropIndex("dbo.Applications", new[] { "AppGroupId" });
             DropIndex("dbo.Applications", new[] { "AppTypeId" });
             DropIndex("dbo.AppGroups", new[] { "TenantId" });
+            DropIndex("dbo.Admins", new[] { "AppTypeId" });
+            DropIndex("dbo.Admins", new[] { "AppGroupId" });
+            DropIndex("dbo.Admins", new[] { "TenantId" });
             DropTable("dbo.Tenants");
             DropTable("dbo.IcmSubscriptions");
             DropTable("dbo.IcmRoutings");
@@ -276,6 +299,7 @@ namespace AdminPortal.Migrations
             DropTable("dbo.AppTypes");
             DropTable("dbo.Applications");
             DropTable("dbo.AppGroups");
+            DropTable("dbo.Admins");
         }
     }
 }

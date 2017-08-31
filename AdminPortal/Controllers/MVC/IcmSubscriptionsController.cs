@@ -13,8 +13,8 @@ namespace AdminPortal.Content.Controllers.MVC
 {
     public class IcmSubscriptionsController : Controller
     {
-        private IcmsContext db = new IcmsContext();
-        private TenantsContext TenantsDb = new TenantsContext();
+        private WebPortal db = new WebPortal();
+       
         // GET: IcmSubscriptions
         public async Task<ActionResult> Index()
         {
@@ -40,7 +40,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: IcmSubscriptions/Create
         public ActionResult Create()
         {
-            ViewBag.TenantId = new SelectList(TenantsDb.Tenants, "TenantId", "Name");
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
             
             return View();
         }

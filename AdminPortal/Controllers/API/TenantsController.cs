@@ -15,7 +15,7 @@ namespace AdminPortal.Content.Controllers
 {
     public class TenantsController : ApiController
     {
-        private AdminManageContext db = new AdminManageContext();
+        private WebPortal db = new WebPortal();
 
         // GET: api/Tenants
         public IQueryable<Tenant> GetTenants()

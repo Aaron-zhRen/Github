@@ -240,26 +240,25 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
-    <Compile Include="Controllers\AppGroupsController.cs" />
-    <Compile Include="Controllers\AppTypesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\API\AccountController.cs" />
+    <Compile Include="Controllers\API\AdminsController.cs" />
+    <Compile Include="Controllers\API\AppGroupsController.cs" />
+    <Compile Include="Controllers\API\AppTypesController.cs" />
+    <Compile Include="Controllers\API\HomeController.cs" />
     <Compile Include="Controllers\MVC\AdminsController.cs" />
     <Compile Include="Controllers\MVC\AppGroupsController.cs" />
     <Compile Include="Controllers\MVC\ApplicationsController.cs" />
     <Compile Include="Controllers\MVC\EnvironmentsController.cs" />
     <Compile Include="Controllers\MVC\IcmSubscriptionsController.cs" />
-    <Compile Include="Controllers\MVC\OnBoradsController.cs" />
     <Compile Include="Controllers\MVC\TenantsController.cs" />
-    <Compile Include="Controllers\TenantsController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\API\TenantsController.cs" />
+    <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708300351006_InitialCreate.cs" />
-    <Compile Include="Migrations\201708300351006_InitialCreate.Designer.cs">
-      <DependentUpon>201708300351006_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201708310748598_Webportal.cs" />
+    <Compile Include="Migrations\201708310748598_Webportal.Designer.cs">
+      <DependentUpon>201708310748598_Webportal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -268,24 +267,18 @@
     <Compile Include="Models\AetherWorkflow.cs" />
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AppGroup.cs" />
-    <Compile Include="Models\AppGroupsContext.cs" />
+    <Compile Include="Models\WebPortal.cs" />
     <Compile Include="Models\Application.cs" />
-    <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\AppType.cs" />
     <Compile Include="Models\Counter.cs" />
     <Compile Include="Models\CounterInstance.cs" />
     <Compile Include="Models\Environment.cs" />
-    <Compile Include="Models\EnvironmentContext.cs" />
     <Compile Include="Models\IcmRouting.cs" />
     <Compile Include="Models\IcmsContext.cs" />
     <Compile Include="Models\IcmSubscription.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Incident.cs" />
-    <Compile Include="Models\AdminManageContext.cs" />
-    <Compile Include="Models\OnBorad.cs" />
-    <Compile Include="Models\OnBoradContext.cs" />
     <Compile Include="Models\Tenant.cs" />
-    <Compile Include="Models\TenantsContext.cs" />
     <Compile Include="Models\Threshold.cs" />
     <Compile Include="Models\WorkflowRecurrence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -369,11 +362,6 @@
     <Content Include="Views\Environments\Details.cshtml" />
     <Content Include="Views\Environments\Edit.cshtml" />
     <Content Include="Views\Environments\Index.cshtml" />
-    <Content Include="Views\OnBorads\Create.cshtml" />
-    <Content Include="Views\OnBorads\Delete.cshtml" />
-    <Content Include="Views\OnBorads\Details.cshtml" />
-    <Content Include="Views\OnBorads\Edit.cshtml" />
-    <Content Include="Views\OnBorads\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
@@ -413,8 +401,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708300351006_InitialCreate.resx">
-      <DependentUpon>201708300351006_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708310748598_Webportal.resx">
+      <DependentUpon>201708310748598_Webportal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

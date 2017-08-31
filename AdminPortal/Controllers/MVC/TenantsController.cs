@@ -13,7 +13,7 @@ namespace AdminPortal.Content.Controllers.MVC
 {
     public class TenantsController : Controller
     {
-        private TenantsContext db = new TenantsContext();
+        private WebPortal db = new WebPortal();
 
         // GET: Tenants
         public async Task<ActionResult> Index()

@@ -15,7 +15,7 @@ namespace AdminPortal.Content.Controllers
 {
     public class AppTypesController : ApiController
     {
-        private AdminManageContext db = new AdminManageContext();
+        private WebPortal db = new WebPortal();
 
         // GET: api/AppTypes
         public IQueryable<AppType> GetAppTypes()

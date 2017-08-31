@@ -12,7 +12,7 @@ namespace AdminPortal.Content.Controllers.MVC
 {
     public class EnvironmentsController : Controller
     {
-        private EnvironmentContext db = new EnvironmentContext();
+        private WebPortal db = new WebPortal();
 
         // GET: Environments
         public ActionResult Index()

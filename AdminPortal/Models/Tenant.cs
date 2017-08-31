@@ -2,14 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class Tenant
     {
+       
         public Guid TenantId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Owners { get; set; }
-
         public ICollection<AppGroup> AppGroups { get; set; }
         public ICollection<IcmSubscription> IcmSubscriptions { get; set; }
     }

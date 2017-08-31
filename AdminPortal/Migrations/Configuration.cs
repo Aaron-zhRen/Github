@@ -5,15 +5,14 @@ namespace AdminPortal.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AdminPortal.Models.AppGroupsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AdminPortal.Models.WebPortal>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "AdminPortal.Models.AppGroupsContext";
         }
 
-        protected override void Seed(AdminPortal.Models.AppGroupsContext context)
+        protected override void Seed(AdminPortal.Models.WebPortal context)
         {
             //  This method will be called after migrating to the latest version.
 
