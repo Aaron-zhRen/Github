@@ -1,0 +1,46 @@
+﻿@model IEnumerable<AdminPortal.Models.IcmRouting>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IcmSubscription.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoutingId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CorrelationId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IcmSubscription.ServiceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoutingId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CorrelationId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IcmRoutingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IcmRoutingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IcmRoutingId })
+        </td>
+    </tr>
+}
+
+</table>

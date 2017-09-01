@@ -16,20 +16,36 @@ namespace AdminPortal
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                        "~/Scripts/moment.js",
+                         "~/Scripts/moment.min.js"
+                        ));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-timepicker.js",
+                      "~/Scripts/bootstrap-timepicker.min.js",
+                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/SentryStyle.css"
+                      "~/Content/bootstrap.theme.css",
+                      "~/Content/bootstrap.timepicker.css",
+                      "~/Content/bootstrap.timepicker.min.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/bootstrap.datetimepicker-build.less",
+                      "~/Content/bootstrap.theem.min.css"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-              "~/Scripts/knockout-{version}.js",
-              "~/Scripts/app.js",
-               "~/Scripts/metisMenu.js"));
+                    "~/Scripts/knockout-{version}.js",
+                    "~/Scripts/app.js",
+                    "~/Scripts/metisMenu.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/metisMenu").Include(
                         "~/Scripts/metisMenu.js"));

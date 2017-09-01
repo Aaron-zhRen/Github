@@ -1,9 +1,10 @@
 ﻿namespace AdminPortal.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public abstract class Application
+    public class Application
     {
         [Key]
         public int AppId { get; set; }
@@ -18,7 +19,7 @@
         public int AppTypeId { get; set; }
         public int AppGroupId { get; set; }
         public int? IcmRoutingId { get; set; }
-        public int TenantId { get; set; }
+        public string TenantId { get; set; }
 
         public AppType AppType { get; set; }
         public AppGroup AppGroup { get; set; }

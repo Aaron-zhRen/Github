@@ -39,7 +39,19 @@ namespace AdminPortal.Content.Controllers.MVC
         public ActionResult Create()
         {
             ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "RoutingId");
             ViewBag.AppGroupId = new SelectList(db.AppGroups, "AppGroupId", "Name");
+            ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
+            List<SelectListItem> Recurrencetypes = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Minutely",Value = "Minutely" },
+                new SelectListItem { Text = "Hourly",Value = "Hourly" },
+                new SelectListItem { Text = "Daily",Value = "Daily" },
+                new SelectListItem { Text = "Weekly",Value = "Weekly" },
+                new SelectListItem { Text = "Monthly",Value = "Monthly" }
+            };
+
+            ViewBag.RecurrenceTypes = Recurrencetypes;
             return View();
         }
 
@@ -48,7 +60,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AppId,Name,AppGroupId,TenantId")] Application application)
+        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,IsIcmEnabled,AppTypeId,AppGroupId,TenantId")] Application application)
         {
             if (ModelState.IsValid)
             {

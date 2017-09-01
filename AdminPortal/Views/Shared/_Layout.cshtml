@@ -7,6 +7,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation" style="margin-bottom:0">
@@ -59,7 +61,7 @@
     <footer class="col-lg-2 col-lg-offset-1">
         <p>&copy; @DateTime.Now.Year - Sentry Application</p>
     </footer>
-
+    @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/metisMenu")

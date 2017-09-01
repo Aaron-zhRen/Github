@@ -8,13 +8,12 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="panel panel-default col-lg-9" style="padding-left:0px;padding-right:0px">
+    <div class="panel panel-default col-lg-7" style="padding-left:0px;padding-right:0px">
         <div class="panel-heading" style="background:#000000;font-style:inherit">
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Add Appcication</i>
+            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Add Application</i>
         </div>
         <div class="panel-body">
             <div class="form-horizontal">
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <!-- ApplicationName -->
@@ -65,12 +64,204 @@
                         @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <!-- Icm -->
+                <!-- AppType -->
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IcmRoutingId, "AppGroupName", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.AppTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("AppGroupId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.AppGroupId, "", new { @class = "text-danger" })
+                        @Html.DropDownList("AppTypeId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AppTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- EnableIcm -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IcmRoutingId, "IcmRouting", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- ICM set  -->
+                <div class="panel">
+                    <div class="panel-heading" style="background:#000000;font-style:inherit">
+                        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">ICM</i>
+                        <div class="pull-right">
+                            @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environment set  -->
+                <div class="panel">
+                    <div class="panel-heading" style="background:#000000">
+                        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">Envrionment</i>
+                        <div class="pull-right">
+                            @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <!-- Alert set  -->
+                        <div class="panel">
+                            <div class="panel-heading" style="background:#808080">
+                                <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Alert Type</i>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    Delay<input type="radio" /> <input type="date" />Minutes
+                                </div>
+                                <div>
+                                    OOSLA<input type="radio" /><input type="date" />Minutes
+                                </div>
+                                <div>
+                                    Failed<input type="radio" /><input type="date" />Times
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Recurrence set  -->
+                        <div class="panel">
+                            <div class="panel-heading" style="background:#808080">
+                                <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Recurrence</i>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="control-label">RencurrenceType</label>
+                                    <div class="pull-right">
+                                        @Html.DropDownList("RecurrenceTypes", null, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <!-- Minutely -->
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <i>Minutely</i>
+                                    </div>
+                                    <div class="panel-default">
+                                        <div class="container">
+                                            <i>start at</i><input>
+                                        </div>
+                                        <div class="container">
+                                            <i>intterval</i><input><i>minutes</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Hourly -->
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <i>Hourly</i>
+                                    </div>
+                                    <div class="panel-default">
+                                        <div class="container">
+                                            <i>start at</i><input>
+                                        </div>
+                                        <div class="container">
+                                            <i>intterval</i><input><i>hours</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Daily -->
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <i>Daily</i>
+                                    </div>
+                                    <div class="panel-default">
+                                        <div class="container">
+                                            <i>Every</i><input><i>days</i>
+                                        </div>
+                                        <div class="container">
+                                            <i>start at</i><input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Weekly -->
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <i>Weekly</i>
+                                    </div>
+                                    <div class="panel-default">
+                                        <div class="container">
+                                            <i>The day</i><p>
+                                            Sunday<input type="radio" />
+                                            Monday<input type="radio" />
+                                            Tuesday<input type="radio" />
+                                            Wednesday<input type="radio" />
+                                            Thursday<input type="radio" />
+                                            Firday<input type="radio" />
+                                            Saturday<input type="radio" />
+                                        </div>
+                                        <div class="container">
+                                            <i>of every </i><input><i>weeks</i>
+                                        </div>
+                                        <div class="container">
+                                            <i> start at </i><input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Monthly -->
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <i>Monthly</i>
+                                    </div>
+                                    <div class="panel-default">
+                                        <div class="container">
+                                            <input type="radio" />
+                                            <i>The day</i><input><i>of every </i><input><i>months</i>
+                                            <p><i> start at </i><input>
+                                        </div>
+                                        <div class="container">
+                                            <input type="radio" />
+                                            <i>The</i><input><i>th</i><input><i>of every</i><input><i>months</i>
+                                            <p><i> start at </i><input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,5 +273,8 @@
     </div>
 }
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
 }

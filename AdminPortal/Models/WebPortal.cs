@@ -28,5 +28,6 @@ namespace AdminPortal.Models
         public System.Data.Entity.DbSet<AdminPortal.Models.Application> Applications { get; set; }
         public System.Data.Entity.DbSet<AdminPortal.Models.Admin> Admins { get; set; }
         public System.Data.Entity.DbSet<AdminPortal.Models.AppType> AppTypes { get; set; }
+       
     }
 }
