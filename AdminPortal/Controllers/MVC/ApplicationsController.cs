@@ -17,7 +17,8 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: Applications
         public ActionResult Index()
         {
-            return View(db.Applications.ToList());
+            var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup);
+            return View(Applications.ToList());
         }
 
         // GET: Applications/Details/5
@@ -38,7 +39,13 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: Applications/Create
         public ActionResult Create(FormCollection collection)
         {
-                        
+            DateforDropownlist();
+            return View();
+
+
+        }
+
+        public void DateforDropownlist() {
             List<SelectListItem> Recurrencetypes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Minutely",Value = "Minutely" },
@@ -80,9 +87,7 @@ namespace AdminPortal.Content.Controllers.MVC
             ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
             ViewBag.EnvId = new SelectList(db.Environments, "EnvId", "Name");
 
-            return View();
 
-           
         }
         
       
@@ -106,6 +111,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: Applications/Edit/5
         public ActionResult Edit(int? id)
         {
+            DateforDropownlist();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

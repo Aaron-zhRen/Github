@@ -29,9 +29,13 @@ namespace AdminPortal
                       "~/Scripts/bootstrap-timepicker.js",
                       "~/Scripts/bootstrap-timepicker.min.js",
                       "~/Scripts/bootstrap-datetimepicker.js",
-                      "~/Scripts/bootstrap-datetimepicker.min.js",
-                      "~/Scripts/rencurrenceTypeController.js"
+                      "~/Scripts/bootstrap-datetimepicker.min.js"
+                      
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/rencurrenceTypeController").Include(
+                     "~/Scripts/rencurrenceTypeController.js"
+                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
