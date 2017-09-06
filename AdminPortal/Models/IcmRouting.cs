@@ -5,6 +5,7 @@
     public class IcmRouting
     {
         public int IcmRoutingId { get; set; }
+        public string IcmName { get; set; }
         public int IcmSubscriptionId { get; set; }
         public string RoutingId { get; set; }
         public string CorrelationId { get; set; }

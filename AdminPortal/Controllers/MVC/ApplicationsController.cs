@@ -38,12 +38,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: Applications/Create
         public ActionResult Create(FormCollection collection)
         {
-
-            
-            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
-            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "RoutingId",db.IcmRoutings);
-            ViewBag.AppGroupId = new SelectList(db.AppGroups, "AppGroupId", "Name");
-            ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
+                        
             List<SelectListItem> Recurrencetypes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Minutely",Value = "Minutely" },
@@ -79,12 +74,17 @@ namespace AdminPortal.Content.Controllers.MVC
             ViewBag.RecurrenceTypes = Recurrencetypes;
             ViewBag.OrdinalWords = OrdinalWords;
             ViewBag.WeeksWords = WeeksWords;
-            
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "RoutingId", selectedValue: true);
+            ViewBag.AppGroupId = new SelectList(db.AppGroups, "AppGroupId", "Name");
+            ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
+            ViewBag.EnvId = new SelectList(db.Environments, "EnvId", "Name");
+
             return View();
 
            
         }
-
+        
       
         // POST: Applications/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

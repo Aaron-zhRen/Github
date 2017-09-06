@@ -74,51 +74,78 @@
 
                 <!-- EnableIcm -->
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IsIcmEnabled,"IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2"  })
+                    @Html.LabelFor(model => model.IsIcmEnabled, "IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-
-
-
                         @Html.EditorFor(model => model.IsIcmEnabled, new { htmlAttributes = new { @class = "form-control", @id = "icmisenablecontroller" } })
                         @Html.ValidationMessageFor(model => model.IsIcmEnabled, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <!--
-                <div class="form-group">
-                    @Html.LabelFor(model => model.IcmRoutingId, "IcmRouting", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
-                    </div>
-                </div>-->
+                
 
-
-               
-                 <!-- ICM set  -->
-
-                @using (Html.BeginForm())
-                {
-                    <div class="panel" id="IcmPanel">
-                        <div class="panel-heading" style="background:#000000;font-style:inherit">
-                            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">ICM</i>
-                            <div class="pull-right">
-                                @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
-                            </div>
+                <!-- ICM set  -->
+                <div class="panel" id="IcmPanel">
+                    <div class="panel-heading" style="background:#000000;font-style:inherit">
+                        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">ICM</i>
+                        <div class="pull-right">
+                            @Html.DropDownList("IcmRoutings", ViewBag.IcmRoutings as SelectList, htmlAttributes: new { @class = "form-control",@id= "selectIcm" })
+                            @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
                         </div>
-                        <p>当前项目id：@ViewData["drop"]</p>
                     </div>
-                }
+                </div>
+               
+                 <script>
+                    
+                </script>
+
+                <div class="panel-body" id="selectedicm-panel">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IcmRoutingId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.IcmRoutingId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ConnectorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.IcmRouting.IcmSubscription.ConnectorId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ConnectorId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ServiceName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.IcmRouting.IcmSubscription.ServiceName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ServiceName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
                 <!-- Environment set  -->
                 <div class="panel">
                     <div class="panel-heading" style="background:#000000">
                         <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">Envrionment</i>
                         <div class="pull-right">
-                            @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("EnvId", null, htmlAttributes: new { @class = "form-control",@id = "selectEnv" })
                             @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="panel-body">
+
+                    <script>
+                        $("#selectEnv").change(function () {
+                        var selec = $(this).val();
+                        console.log("what-env--->" + selec);
+                        $("#selectedenv-panel").show();
+                    })
+                    </script>
+                    <div class="panel-body" id = "selectedenv-panel">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div>
@@ -140,7 +167,7 @@
                                     <input type="radio" />OOSLA<input type="number" class="col-xs-offset-2" />Minutes
                                 </div>
                                 <div class="form-group">
-                                    <input type="radio" />Failed<input type="number" class="col-xs-offset-2"/>Times
+                                    <input type="radio" />Failed<input type="number" class="col-xs-offset-2" />Times
                                 </div>
                             </div>
                         </div>
@@ -232,7 +259,6 @@
                                                         });
                                                     });
                                                     $("#DeleteStartTime-day").click(function () {
-
                                                         $("ol#ol-day li:last-child").remove();
                                                     });
                                                 });
@@ -300,7 +326,7 @@
                                         <div class="container">
                                             <h4><input type="radio" /><i>The day</i></h4>
                                             <!-- the days -->
-                                            <table >
+                                            <table>
                                                 <tr>
                                                     <td><input type="button" value="01" style="background:#ffffff" /></td>
                                                     <td><input type="button" value="02" style="background:#ffffff" /></td>

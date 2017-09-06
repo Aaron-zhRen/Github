@@ -5,19 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+@if (ViewBag.ReferedApplications != null)
+{
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <i style="font:200px">Warning:</i>
+            <i>This Applications have binded the Icm you will edit</i>
+        </div>
+        <div class="panel-default">
+            <i>Application Name:</i>
+            @foreach (var item in (List<string>)ViewBag.ReferedApplications)
+                {
+               
+                <div>@Html.DisplayFor(modelItem => item)</div>
+                }
 
+            <a href="~/IcmRoutings/Create"><i>Add a new one</i></a>
+        </div>
+    </div>
+    
+
+
+}
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>IcmRouting</h4>
+        <h4>Edit</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IcmRoutingId)
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmName, "IcmName", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IcmName", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IcmName, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.IcmSubscriptionId, "IcmSubscriptionId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -44,11 +70,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default"/>
             </div>
         </div>
     </div>
 }
+
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

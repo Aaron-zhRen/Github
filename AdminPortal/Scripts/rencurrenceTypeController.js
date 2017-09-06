@@ -6,8 +6,12 @@ $(function () {
     $("#panel-week").hide();
     $("#panel-month").hide();
     $("#IcmPanel").hide();
+    $("#selectedenv-panel").hide();
+    $("#selectedicm-panel").hide();
+   
 
     var icmisenable = false;
+    var icmpanelbody = false;
 
 
     $("#icmisenablecontroller").change(function () {
@@ -15,10 +19,24 @@ $(function () {
         icmisenable = !icmisenable;
 
         if (icmisenable) { $("#IcmPanel").show(); }
-        else { $("#IcmPanel").hide(); }
+        else {
+            $("#IcmPanel").hide();
+            $("#selectedicm-panel").hide();
+        }
     })
 
-    
+
+    $("#selectIcm").change(function () {
+        var selec = $(this).val();
+        console.log("what-Icm--->" + selec);
+        icmpanelbody = true
+        if (icmisenable == true) {
+            if(icmpanelbody == true)
+            $("#selectedicm-panel").show();
+        }
+
+        
+    })
 
     $("#recurrencetypes").change(function () {
 

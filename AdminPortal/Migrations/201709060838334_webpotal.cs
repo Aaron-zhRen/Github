@@ -3,16 +3,16 @@ namespace AdminPortal.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class webportal : DbMigration
+    public partial class webpotal : DbMigration
     {
         public override void Up()
         {
-            AlterColumn("dbo.Applications", "TenantId", c => c.String());
+            AddColumn("dbo.IcmRoutings", "IcmName", c => c.String());
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Applications", "TenantId", c => c.Int(nullable: false));
+            DropColumn("dbo.IcmRoutings", "IcmName");
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
 
-namespace AdminPortal.Controllers.SetData
+namespace AdminPortal.Controllers.MVC
 {
     public class IcmRoutingsController : Controller
     {
@@ -40,7 +40,7 @@ namespace AdminPortal.Controllers.SetData
         // GET: IcmRoutings/Create
         public ActionResult Create()
         {
-            ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "Id", "ServiceName");
+            ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "ServiceName", "ServiceName");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace AdminPortal.Controllers.SetData
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting)
+        public async Task<ActionResult> Create([Bind(Include = "IcmName,IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,27 @@ namespace AdminPortal.Controllers.SetData
                 return HttpNotFound();
             }
             ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "Id", "ServiceName", icmRouting.IcmSubscriptionId);
-            return View(icmRouting);
+            ViewBag.IcmName = new SelectList(db.IcmRoutings, "IcmName", "IcmName", icmRouting.IcmSubscriptionId);
+            //Is used by Application?
+            List<Application> applications = new List<Application>(db.Applications);
+            List<string> ReferedApplications = new List<string>();
+            foreach (var item in applications) {
+                if (item.IcmRoutingId == id)
+                {
+                    ReferedApplications.Add(item.Name);
+                }
+            }
+
+            if (ReferedApplications.Count() != 0)
+            {
+                ViewBag.ReferedApplications = ReferedApplications;
+                return View();
+            }
+            else {
+                ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "Id", "ServiceName", icmRouting.IcmSubscriptionId);
+                return View(icmRouting);
+            }
+            
         }
 
         // POST: IcmRoutings/Edit/5

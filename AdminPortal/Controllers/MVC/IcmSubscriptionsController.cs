@@ -59,7 +59,7 @@ namespace AdminPortal.Content.Controllers.MVC
         //    return View();
         //}
 
-        // POST: IcmSubscriptions/Create他
+        // POST: IcmSubscriptions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,6 +89,9 @@ namespace AdminPortal.Content.Controllers.MVC
             {
                 return HttpNotFound();
             }
+
+            List<Application> applications = new List<Application>(db.Applications);
+           
             ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name", icmSubscription.TenantId);
             return View(icmSubscription);
         }

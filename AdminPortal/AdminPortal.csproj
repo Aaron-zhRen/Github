@@ -249,18 +249,18 @@
     <Compile Include="Controllers\MVC\AppGroupsController.cs" />
     <Compile Include="Controllers\MVC\ApplicationsController.cs" />
     <Compile Include="Controllers\MVC\EnvironmentsController.cs" />
+    <Compile Include="Controllers\MVC\IcmRoutingsController.cs" />
     <Compile Include="Controllers\MVC\IcmSubscriptionsController.cs" />
     <Compile Include="Controllers\MVC\TenantsController.cs" />
     <Compile Include="Controllers\API\TenantsController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Controllers\SetData\AppTypesController.cs" />
-    <Compile Include="Controllers\SetData\IcmRoutingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708311140407_webportal.cs" />
-    <Compile Include="Migrations\201708311140407_webportal.Designer.cs">
-      <DependentUpon>201708311140407_webportal.cs</DependentUpon>
+    <Compile Include="Migrations\201709060838334_webpotal.cs" />
+    <Compile Include="Migrations\201709060838334_webpotal.Designer.cs">
+      <DependentUpon>201709060838334_webpotal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -512,8 +512,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708311140407_webportal.resx">
-      <DependentUpon>201708311140407_webportal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709060838334_webpotal.resx">
+      <DependentUpon>201709060838334_webpotal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
