@@ -16,9 +16,27 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Tenants
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string appsortOrder, string SearchString)
         {
-            return View(await db.Tenants.ToListAsync());
+            var tenants = db.Tenants.Include(a =>a.AppGroups);
+
+            //function of search
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                tenants = db.Tenants.Where(u => u.Name.Contains(SearchString));
+            }
+            //function of order
+            ViewBag.AppNameSortParm = string.IsNullOrEmpty(appsortOrder) ? "name_desc" : "";
+            switch (appsortOrder)
+            {
+                case "name_desc":
+                    tenants = tenants.OrderByDescending(u => u.Name);
+                    break;
+                default:
+                    tenants = tenants.OrderBy(u => u.Name);
+                    break;
+            }
+            return View(await tenants.ToListAsync());
         }
 
         // GET: Tenants/Details/5

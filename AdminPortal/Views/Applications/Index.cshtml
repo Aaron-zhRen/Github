@@ -6,10 +6,15 @@
 }
 <div class="panel panel-default col-lg-9" style="padding-left:0px;padding-right:0px">
     <div class="panel-heading" style="background:#000000">
-        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Applications</i>
         <div class="pull-right">
             <a href="~/Applications/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
+        @using (Html.BeginForm())
+        {
+            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Applications</i>
+            @Html.TextBox("SearchString")<input type="submit" value="SearchApp" />
+        }
+        
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -18,13 +23,13 @@
                 <table class="table">
                     <tr>
                         <th>
-                            <i>Name</i>
+                            @Html.ActionLink("Name","Index",new { appsortOrder = ViewBag.AppNameSortParm })
                         </th>
                         <th>
                             <i>AppGroupName</i>
                         </th>
                         <th>
-                            <i>TenantName</i>
+                            <i>TenanName</i>
                         </th>
                         <th></th>
                     </tr>
@@ -48,7 +53,6 @@
                             </td>
                         </tr>
                     }
-
                 </table>
 
             </div>

@@ -94,7 +94,12 @@
                 </div>
                
                  <script>
-                    
+                     $("#selectIcm").change(function () {
+                         var selec = $(this).val();
+                         console.log("what-env--->" + selec);
+                         jQuery.post("/Applications/Create",selec);
+
+                     })
                 </script>
 
                 <div class="panel-body" id="selectedicm-panel">

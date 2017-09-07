@@ -18,9 +18,27 @@ namespace AdminPortal.Content.Controllers.MVC
 
                
         // GET: AppGroups
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string appsortOrder, string SearchString)
         {
             var appGroups = db.AppGroups.Include(a => a.Tenant);
+
+            //function of search
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                appGroups = db.AppGroups.Where(u => u.Name.Contains(SearchString));
+            }
+            //function of order
+            ViewBag.AppNameSortParm = string.IsNullOrEmpty(appsortOrder) ? "name_desc" : "";
+            switch (appsortOrder)
+            {
+                case "name_desc":
+                    appGroups = appGroups.OrderByDescending(u => u.Name);
+                    break;
+                default:
+                    appGroups = appGroups.OrderBy(u => u.Name);
+                    break;
+            }
+            
             return View(await appGroups.ToListAsync());
         }
 
@@ -42,7 +60,8 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: AppGroups/Create
         public ActionResult Create()
         {
-            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name",selectedValue:true);
+            
             return View();
         }
 
@@ -54,15 +73,14 @@ namespace AdminPortal.Content.Controllers.MVC
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include ="AppGroupId,TenantId,Name,Description")] AppGroup appGroup)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
                 
                 db.AppGroups.Add(appGroup);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name", appGroup.TenantId);
+           
             return View(appGroup);
         }
 

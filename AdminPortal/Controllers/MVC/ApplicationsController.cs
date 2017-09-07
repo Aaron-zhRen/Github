@@ -15,12 +15,49 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Applications
-        public ActionResult Index()
+        public ActionResult Index(string appsortOrder,string SearchString)
         {
             var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup);
+
+            //function of search
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                Applications = db.Applications.Where(u => u.Name.Contains(SearchString)).Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup);
+            }
+            //function of order
+            ViewBag.AppNameSortParm = string.IsNullOrEmpty(appsortOrder) ? "name_desc" : "";
+            switch (appsortOrder)
+            {
+                case "name_desc":Applications = Applications.OrderByDescending(u => u.Name);
+                    break;
+                default:Applications = Applications.OrderBy(u => u.Name);
+                    break;
+            }
+            //ViewBag.AppGroupNameSortParm = string.IsNullOrEmpty(appgroupnamesortOrder) ? "name_desc" : "";
+            //switch (appgroupnamesortOrder)
+            //{
+            //    case "name_desc":
+            //        Applications = Applications.OrderByDescending(u => u.AppGroup.Name);
+            //        break;
+            //    default:
+            //        Applications = Applications.OrderBy(u => u.Name);
+            //        break;
+            //}
+            //ViewBag.TenantNameSortParm = string.IsNullOrEmpty(tenantnamesortOrder) ? "name_desc" : "";
+            //switch (tenantnamesortOrder)
+            //{
+            //    case "name_desc":
+            //        Applications = Applications.OrderByDescending(u => u.AppGroup.Tenant.Name);
+            //        break;
+            //    default:
+            //        Applications = Applications.OrderBy(u => u.Name);
+            //        break;
+            //}
+           
+
             return View(Applications.ToList());
         }
-
+       
         // GET: Applications/Details/5
         public ActionResult Details(int? id)
         {
@@ -41,8 +78,6 @@ namespace AdminPortal.Content.Controllers.MVC
         {
             DateforDropownlist();
             return View();
-
-
         }
 
         public void DateforDropownlist() {
@@ -96,7 +131,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,IsIcmEnabled,AppTypeId,AppGroupId,TenantId")] Application application)
+        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +139,7 @@ namespace AdminPortal.Content.Controllers.MVC
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            string strDDLValue = form["selectIcm"].ToString();
             return View(application);
         }
 

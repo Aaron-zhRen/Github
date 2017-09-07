@@ -15,9 +15,26 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Environments
-        public ActionResult Index()
+        public ActionResult Index(string appsortOrder, string SearchString)
         {
-            return View(db.Environments.ToList());
+            var environments = db.Environments.OrderByDescending(u => u.Name);
+            //function of search
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                environments = db.Environments.Where(u => u.Name.Contains(SearchString)).OrderByDescending(u => u.Name);
+            }
+            //function of order
+            ViewBag.AppNameSortParm = string.IsNullOrEmpty(appsortOrder) ? "name_desc" : "";
+            switch (appsortOrder)
+            {
+                case "name_desc":
+                    environments = environments.OrderByDescending(u => u.Name);
+                    break;
+                default:
+                    environments = environments.OrderBy(u => u.Name);
+                    break;
+            }
+            return View(environments.ToList());
         }
 
         // GET: Environments/Details/5

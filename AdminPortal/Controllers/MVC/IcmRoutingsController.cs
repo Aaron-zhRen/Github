@@ -16,9 +16,25 @@ namespace AdminPortal.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: IcmRoutings
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string appsortOrder, string SearchString)
         {
             var icmRoutings = db.IcmRoutings.Include(i => i.IcmSubscription);
+            //function of search
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                icmRoutings = db.IcmRoutings.Where(u => u.IcmName.Contains(SearchString));
+            }
+            //function of order
+            ViewBag.AppNameSortParm = string.IsNullOrEmpty(appsortOrder) ? "name_desc" : "";
+            switch (appsortOrder)
+            {
+                case "name_desc":
+                    icmRoutings = icmRoutings.OrderByDescending(u => u.IcmName);
+                    break;
+                default:
+                    icmRoutings = icmRoutings.OrderBy(u => u.IcmName);
+                    break;
+            }
             return View(await icmRoutings.ToListAsync());
         }
 

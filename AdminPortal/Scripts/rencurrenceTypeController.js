@@ -25,7 +25,6 @@ $(function () {
         }
     })
 
-
     $("#selectIcm").change(function () {
         var selec = $(this).val();
         console.log("what-Icm--->" + selec);
@@ -37,9 +36,7 @@ $(function () {
 
         
     })
-
     $("#recurrencetypes").change(function () {
-
         var selec = $(this).val();
         console.log("what" + selec);
         if (selec == "Daily") {
