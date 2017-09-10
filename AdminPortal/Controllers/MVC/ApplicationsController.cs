@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
+using System.Threading.Tasks;
 
 namespace AdminPortal.Content.Controllers.MVC
 {
@@ -33,28 +34,6 @@ namespace AdminPortal.Content.Controllers.MVC
                 default:Applications = Applications.OrderBy(u => u.Name);
                     break;
             }
-            //ViewBag.AppGroupNameSortParm = string.IsNullOrEmpty(appgroupnamesortOrder) ? "name_desc" : "";
-            //switch (appgroupnamesortOrder)
-            //{
-            //    case "name_desc":
-            //        Applications = Applications.OrderByDescending(u => u.AppGroup.Name);
-            //        break;
-            //    default:
-            //        Applications = Applications.OrderBy(u => u.Name);
-            //        break;
-            //}
-            //ViewBag.TenantNameSortParm = string.IsNullOrEmpty(tenantnamesortOrder) ? "name_desc" : "";
-            //switch (tenantnamesortOrder)
-            //{
-            //    case "name_desc":
-            //        Applications = Applications.OrderByDescending(u => u.AppGroup.Tenant.Name);
-            //        break;
-            //    default:
-            //        Applications = Applications.OrderBy(u => u.Name);
-            //        break;
-            //}
-           
-
             return View(Applications.ToList());
         }
        
@@ -74,7 +53,7 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: Applications/Create
-        public ActionResult Create(FormCollection collection,string addsome)
+        public ActionResult Create(string addsome)
         {
             DateforDropownlist();
             if (!string.IsNullOrEmpty(addsome))
@@ -130,10 +109,11 @@ namespace AdminPortal.Content.Controllers.MVC
             ViewBag.OrdinalWords = OrdinalWords;
             ViewBag.WeeksWords = WeeksWords;
             ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
-            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "RoutingId", selectedValue: true);
+            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "IcmName");
             ViewBag.AppGroupId = new SelectList(db.AppGroups, "AppGroupId", "Name");
             ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
             ViewBag.EnvId = new SelectList(db.Environments, "EnvId", "Name");
+            ViewBag.Connectorid = new SelectList(db.IcmSubscriptions, "ConnectorId", "ConnectorId");
 
 
         }
@@ -144,15 +124,46 @@ namespace AdminPortal.Content.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,FormCollection form)
+        public async Task<ActionResult> Create(
+            [Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,
+            [Bind(Include = "Name,Description,Owners")]Tenant tenant,
+            [Bind(Include = "IcmName,IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting, 
+            [Bind(Include = "ServiceName,ConnectorId")] IcmSubscription icmSubscription,
+            [Bind(Include = "AppGroupId,TenantId,Name,Description")] AppGroup appGroup,
+            [Bind(Include = "EnvId,Name,Description,IsEnabled")] Models.Environment environment,
+            string add)
         {
             if (ModelState.IsValid)
             {
-                db.Applications.Add(application);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                switch (add)
+                {
+                    case "addTenant":
+                        tenant.TenantId = Guid.NewGuid();
+                        db.Tenants.Add(tenant);
+                        await db.SaveChangesAsync();
+                        ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+                        break;
+                    case "addApplication":
+                        db.Applications.Add(application);
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                    case "addIcm":
+                        db.IcmSubscriptions.Add(icmSubscription);
+                        db.IcmRoutings.Add(icmRouting);
+                        await db.SaveChangesAsync();
+                        break;
+                    case "addEvn":
+                        db.Environments.Add(environment);
+                        await db.SaveChangesAsync();
+                        break;
+                    case "addAppgroup":
+                        db.AppGroups.Add(appGroup);
+                        await db.SaveChangesAsync();
+                        break;
+                }
             }
-            string strDDLValue = form["selectIcm"].ToString();
+            DateforDropownlist();
             return View(application);
         }
 

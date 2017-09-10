@@ -1,38 +1,55 @@
-﻿@model AdminPortal.Models.AppGroup
+﻿@model AdminPortal.Models.Application
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(new { add = "addIcm" }))
 {
     @Html.AntiForgeryToken()
-    <div class="panel panel-default" style="padding-left:0px;padding-right:0px">
-        <div class="panel-heading" style="background:#000000;font-style:inherit">
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add Icm</i>
-        </div>
-        <div class="panel-body">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Tenant.Description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Owners, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Tenant.Owners, "", new { @class = "text-danger" })
-                </div>
+    <div class="form-horizontal">
+        <h4>IcmRouting</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmRouting.IcmName, "IcmName", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IcmRouting.IcmName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IcmRouting.IcmName, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="panel-footer list-inline" style="float:right">
-            <input type="submit" value="Create" class="btn btn-default" />
-            <a href="~/AppGroups/Index"><input type="button" value="cancel" class="btn btn-default" /></a>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ServiceName, "ServiceName", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IcmRouting.IcmSubscription.ServiceName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ServiceName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmRouting.RoutingId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IcmRouting.RoutingId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IcmRouting.RoutingId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmRouting.CorrelationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IcmRouting.CorrelationId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IcmRouting.CorrelationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ConnectorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Connectorid", null, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ConnectorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
 }

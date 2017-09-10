@@ -258,9 +258,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709060838334_webpotal.cs" />
-    <Compile Include="Migrations\201709060838334_webpotal.Designer.cs">
-      <DependentUpon>201709060838334_webpotal.cs</DependentUpon>
+    <Compile Include="Migrations\201709101227515_WebProtal.cs" />
+    <Compile Include="Migrations\201709101227515_WebProtal.Designer.cs">
+      <DependentUpon>201709101227515_WebProtal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -517,8 +517,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709060838334_webpotal.resx">
-      <DependentUpon>201709060838334_webpotal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709101227515_WebProtal.resx">
+      <DependentUpon>201709101227515_WebProtal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

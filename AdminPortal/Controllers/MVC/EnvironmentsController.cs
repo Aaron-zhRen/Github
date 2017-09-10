@@ -63,16 +63,33 @@ namespace AdminPortal.Content.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EnvId,Name,Description,IsEnabled")] Models.Environment environment)
+        public ActionResult Create(
+            [Bind(Include = "EnvId,Name,Description,IsEnabled")] Models.Environment environment,
+            [Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application, 
+            string addsome)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(addsome))
             {
-                db.Environments.Add(environment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Environments.Add(environment);
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "Applications");
+                }
+                
+                return View(application);
             }
-
-            return View(environment);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Environments.Add(environment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(environment);
+            }
+            
         }
 
         // GET: Environments/Edit/5

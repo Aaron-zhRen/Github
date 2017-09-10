@@ -15,8 +15,6 @@ namespace AdminPortal.Content.Controllers.MVC
     {
         private WebPortal db = new WebPortal();
         
-
-               
         // GET: AppGroups
         public async Task<ActionResult> Index(string appsortOrder, string SearchString)
         {
@@ -58,31 +56,43 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: AppGroups/Create
-        public ActionResult Create(string addTenant)
+        public ActionResult Create(string AddTenant)
         {
             ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
-            if (!string.IsNullOrEmpty(addTenant))
-            {
-                ViewBag.showAddTenantPanel =true;
+
+            if (!string.IsNullOrEmpty(AddTenant)) {
+
+                ViewBag.showAddTenantPanel = true;
             }
+            
             return View();
         }
-
+       
         // POST: AppGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include ="AppGroupId,TenantId,Name,Description")] AppGroup appGroup)
+        public async Task<ActionResult> Create([Bind(Include = "AppGroupId,TenantId,Name,Description")] AppGroup appGroup, [Bind(Include = "Name,Description,Owners")]Tenant tenant, string add)
         {
-           if (ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                
-                db.AppGroups.Add(appGroup);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                switch (add)
+                {
+                    case "addTenant":
+                        tenant.TenantId = Guid.NewGuid();
+                        db.Tenants.Add(tenant);
+                        await db.SaveChangesAsync();
+                        ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+                        break;
+                    case "addAppgroup":
+                        db.AppGroups.Add(appGroup);
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                }
             }
-           
             return View(appGroup);
         }
 

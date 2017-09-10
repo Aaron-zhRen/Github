@@ -8,21 +8,21 @@
 
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <div class="panel panel-default col-lg-7" style="padding-left:0px;padding-right:0px">
+            <div class="panel panel-default" style="padding-left:0px;padding-right:0px">
                 <div class="panel-heading" style="background:#000000;font-style:inherit">
                     <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Add Application</i>
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.ActionLink("AddTenant", "Create", new { addsome = "AddTenant" })
-                        @Html.ActionLink("AddAppgroup", "Create", new { addsome = "AddAppgroup" })
-                        @Html.ActionLink("AddIcm", "Create", new { addsome = "AddIcm" })
-                        @Html.ActionLink("AddEnvironment", "Create", new { addsome = "AddEnvironment" })
+                      
+                       
+                      
+                      
                         <!-- ApplicationName -->
                         <div class="form-group">
                             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -45,6 +45,7 @@
                             <div class="col-md-10">
                                 @Html.DropDownList("TenantId", null, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                                @Html.ActionLink("AddTenant", "Create", new { addsome = "AddTenant" })
                             </div>
                         </div>
                         <!-- AggGroupName -->
@@ -53,14 +54,15 @@
                             <div class="col-md-10">
                                 @Html.DropDownList("AppGroupId", null, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.AppGroupId, "", new { @class = "text-danger" })
+                                @Html.ActionLink("AddAppgroup", "Create", new { addsome = "AddAppgroup" })
                             </div>
                         </div>
                         <!-- Owner -->
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Tenant.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Tenant.Owners, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Tenant.Owners, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Owners, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Owners, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <!-- EnableMonitor -->
@@ -80,6 +82,15 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IcmRoutingId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
                         <!-- EnableIcm -->
                         <div class="form-group">
                             @Html.LabelFor(model => model.IsIcmEnabled, "IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -90,13 +101,13 @@
                         </div>
 
                         <div class="form-group" id="IcmPanel">
-                            @Html.LabelFor(model => model.IcmRouting.IcmName, "IcmRoutings", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.IcmRoutingId, "Icm", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="pull-right">
                                 @Html.DropDownList("IcmRoutings", ViewBag.IcmRoutings as SelectList, htmlAttributes: new { @class = "form-control", @id = "selectIcm" })
                                 @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
+                                @Html.ActionLink("AddIcm", "Create", new { addsome = "AddIcm" })
                             </div>
                         </div>
-                       
                         <script>
                             $("#selectIcm").change(function () {
                                 var selec = $(this).val();
@@ -162,6 +173,7 @@
                                     <div>
                                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        @Html.ActionLink("AddEnvironment", "Create", new { addsome = "AddEnvironment" })
                                     </div>
                                 </div>
                                 <!-- Alert set  -->
@@ -449,7 +461,7 @@
             </div>
         }
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         @if (ViewBag.showAddTenantPanel == true)
         {
             Html.RenderPartial("~/Views/PartialPage/PartialPageAddTenant.cshtml");

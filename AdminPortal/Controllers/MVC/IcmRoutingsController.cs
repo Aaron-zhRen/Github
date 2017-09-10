@@ -57,6 +57,7 @@ namespace AdminPortal.Controllers.MVC
         public ActionResult Create()
         {
             ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "ServiceName", "ServiceName");
+            ViewBag.Connectorid = new SelectList(db.IcmSubscriptions, "ConnectorId", "ConnectorId");
             return View();
         }
 
@@ -65,10 +66,11 @@ namespace AdminPortal.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IcmName,IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting)
+        public async Task<ActionResult> Create([Bind(Include = "IcmName,IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting,[Bind(Include = "ServiceName,ConnectorId")] IcmSubscription icmSubscription)
         {
             if (ModelState.IsValid)
             {
+                db.IcmSubscriptions.Add(icmSubscription);
                 db.IcmRoutings.Add(icmRouting);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

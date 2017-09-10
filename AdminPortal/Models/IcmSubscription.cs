@@ -6,7 +6,7 @@
     public class IcmSubscription
     {
         public int Id { get; set; }
-        public Guid TenantId { get; set; }
+        public Guid? TenantId { get; set; }
         public string ServiceName { get; set; }
         public Guid ConnectorId { get; set; }
 
