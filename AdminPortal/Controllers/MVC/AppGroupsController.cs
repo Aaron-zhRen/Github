@@ -58,14 +58,16 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: AppGroups/Create
-        public ActionResult Create()
+        public ActionResult Create(string addTenant)
         {
-            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name",selectedValue:true);
-            
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+            if (!string.IsNullOrEmpty(addTenant))
+            {
+                ViewBag.showAddTenantPanel =true;
+            }
             return View();
         }
 
-      
         // POST: AppGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

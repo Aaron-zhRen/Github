@@ -74,11 +74,24 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: Applications/Create
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FormCollection collection,string addsome)
         {
             DateforDropownlist();
+            if (!string.IsNullOrEmpty(addsome))
+            {
+
+                switch (addsome)
+                {
+                    case "AddTenant": ViewBag.showAddTenantPanel = true; break;
+                    case "AddAppgroup": ViewBag.showAddAppgroupPanel = true; break;
+                    case "AddIcm": ViewBag.showAddIcmPanel = true; break;
+                    case "AddEnvironment": ViewBag.showAddEnvironmentPanel = true; break;
+                }
+
+            }
             return View();
         }
+       
 
         public void DateforDropownlist() {
             List<SelectListItem> Recurrencetypes = new List<SelectListItem>

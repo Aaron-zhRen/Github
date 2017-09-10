@@ -22,7 +22,7 @@ namespace AdminPortal
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-
+                     
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js",
@@ -50,8 +50,7 @@ namespace AdminPortal
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                     "~/Scripts/knockout-{version}.js",
-                    "~/Scripts/app.js",
-                    "~/Scripts/metisMenu.js"));
+                     "~/Scripts/metisMenu.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/metisMenu").Include(
                         "~/Scripts/metisMenu.js"));

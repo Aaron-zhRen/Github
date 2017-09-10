@@ -437,6 +437,9 @@
     <Content Include="Scripts\rencurrenceTypeController.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\PartialPage\PartialPageAddAppGroup.cshtml" />
+    <Content Include="Views\PartialPage\PartialPageAddIcm.cshtml" />
+    <Content Include="Views\PartialPage\PartialPageAddEnv.cshtml" />
     <None Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -494,6 +497,7 @@
     <Content Include="Views\AppTypes\Details.cshtml" />
     <Content Include="Views\AppTypes\Edit.cshtml" />
     <Content Include="Views\AppTypes\Index.cshtml" />
+    <Content Include="Views\PartialPage\PartialPageAddTenant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

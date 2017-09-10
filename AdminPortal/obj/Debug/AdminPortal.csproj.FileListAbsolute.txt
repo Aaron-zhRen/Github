@@ -183,4 +183,3 @@ D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.dll
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.pdb
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.Migrations.webpotal.resources
 D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.csproj.GenerateResource.Cache
-D:\TaskforVS2015\Github\AdminPortal\obj\Debug\AdminPortal.csprojResolveAssemblyReference.cache
