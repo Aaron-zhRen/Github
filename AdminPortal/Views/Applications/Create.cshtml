@@ -6,8 +6,8 @@
 }
 
 <div class="row">
-    <div class="col-lg-9">
-        @using (Html.BeginForm())
+    <div class="col-lg-7">
+        @using (Html.BeginForm(new { add = "addApplication" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-default" style="padding-left:0px;padding-right:0px">
@@ -76,13 +76,6 @@
                                 @Html.ValidationMessageFor(model => model.AppTypeId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.IcmRoutingId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("IcmRoutings", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
                         <!-- EnableIcm -->
                         <div class="form-group">
                             @Html.LabelFor(model => model.IsIcmEnabled, "IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -93,25 +86,18 @@
                         </div>
                         <div class="form-group" id="IcmPanel">
                             @Html.LabelFor(model => model.IcmRoutingId, "Icm", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="pull-right">
-                                @Html.DropDownList("IcmRoutings", ViewBag.IcmRoutings as SelectList, htmlAttributes: new { @class = "form-control", @id = "selectIcm" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("IcmRoutingId", null,htmlAttributes: new { @class = "form-control" ,@id = "selectIcm"})
                                 @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
                                 @Html.ActionLink("AddIcm", "Create", new { addsome = "AddIcm" })
                             </div>
                         </div>
-                        <script>
-                            $("#selectIcm").change(function () {
-                                var selec = $(this).val();
-                                console.log("what-env--->" + selec);
-                                jQuery.post("/Applications/Create", selec);
 
-                            })
-                        </script>
+                      
                         <!-- ICM set  -->
                         <div class="panel" >
                         </div>
                         <div class="panel-body" id="selectedicm-panel">
-
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
@@ -142,306 +128,11 @@
                             </div>
                         </div>
                         <!-- Environment set  -->
-                        <div class="panel">
-                            <div class="panel-heading" style="background:#000000">
-                                <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:20px">Envrionment</i>
-                                <div class="pull-right">
-                                    @Html.DropDownList("EnvId", null, htmlAttributes: new { @class = "form-control", @id = "selectEnv" })
-                                    @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <script>
-                                $("#selectEnv").change(function () {
-                                    var selec = $(this).val();
-                                    console.log("what-env--->" + selec);
-                                    $("#selectedenv-panel").show();
-                                })
-                            </script>
-                            <div class="panel-body" id="selectedenv-panel">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div>
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                        @Html.ActionLink("AddEnvironment", "Create", new { addsome = "AddEnvironment" })
-                                    </div>
-                                </div>
-                                <!-- Alert set  -->
-                                <div class="panel">
-                                    <div class="panel-heading" style="background:#808080">
-                                        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Alert Type</i>
-                                    </div>
-                                    <div class="panel-body">
-
-                                        <div class="form-group">
-                                            <input type="radio" />Delay <input type="number" class="col-xs-offset-2" />Minutes
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="radio" />OOSLA<input type="number" class="col-xs-offset-2" />Minutes
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="radio" />Failed<input type="number" class="col-xs-offset-2" />Times
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Recurrence set  -->
-                                <div class="panel">
-                                    <div class="panel-heading" style="background:#808080">
-                                        <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Recurrence</i>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label class="control-label">RencurrenceType</label>
-                                            <div class="pull-right">
-                                                @Html.DropDownList("RecurrenceTypes", null, htmlAttributes: new { @class = "form-control", @id = "recurrencetypes" })
-                                            </div>
-                                        </div>
-                                        <!-- Minutely -->
-                                        <div class="panel panel-danger" id="panel-minutes">
-                                            <div class="panel-heading">
-                                                <i>Minutely</i>
-                                            </div>
-                                            <div class="panel-default">
-                                                <i>start at</i>
-                                                <div>
-                                                    <input type='text' id='datetimepicker1' />
-                                                </div>
-                                                <script type="text/javascript">
-                                                    $(function () {
-                                                        $('#datetimepicker1').datetimepicker({
-                                                            format: 'LT'
-                                                        });
-                                                    });
-                                                </script>
-                                                <i>Intterval</i>
-                                                <div>
-                                                    <input type="number"><i>minutes</i>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <!-- Hourly -->
-                                        <div class="panel panel-danger" id="panel-hour">
-                                            <div class="panel-heading">
-                                                <i>Hourly</i>
-                                            </div>
-                                            <div class="panel-default">
-                                                <i>start at</i>
-                                                <div>
-                                                    <input type='text' id='datetimepicker2' />
-                                                </div>
-                                                <script type="text/javascript">
-                                                    $(function () {
-                                                        $('#datetimepicker2').datetimepicker({
-                                                            format: 'LT'
-                                                        });
-                                                    });
-                                                </script>
-                                                <i>Intterval</i>
-                                                <div>
-                                                    <input type="number"><i>hours</i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Daily -->
-                                        <div class="panel panel-danger" id="panel-day">
-                                            <div class="panel-heading">
-                                                <i>Daily</i>
-                                            </div>
-                                            <div class="panel-default">
-                                                <div class="container">
-                                                    <i>Every</i><p><input><i>days</i>
-                                                </div>
-                                                <div class="container">
-                                                    <i>start at</i>
-                                                    <button type="button" id="AddStartTime-day"><i class="fa fa-plus">Add</i></button>
-                                                    <button type="button" id="DeleteStartTime-day"><i class="fa fa-plus">Delete</i></button>
-                                                    <ol id="ol-day">
-                                                        <li><input type='text' id='datetimepicker3' /></li>
-                                                    </ol>
-                                                    <script type="text/javascript">
-                                                        $(function () {
-                                                            $("li input").datetimepicker({
-                                                                format: 'LT'
-                                                            });
-                                                            $("#AddStartTime-day").click(function () {
-                                                                console.log("<input type='text' id='datetimepicker3'/>")
-                                                                $("ol#ol-day").append("<li><input type='text' id='datetimepicker3'/></li>");
-                                                                $("li input").datetimepicker({
-                                                                    format: 'LT'
-                                                                });
-                                                            });
-                                                            $("#DeleteStartTime-day").click(function () {
-                                                                $("ol#ol-day li:last-child").remove();
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Weekly -->
-                                        <div class="panel panel-danger" id="panel-week">
-                                            <div class="panel-heading">
-                                                <i>Weekly</i>
-                                            </div>
-                                            <div class="panel-default">
-                                                <div class="container">
-                                                    <i>The</i>
-                                                    <table>
-                                                        <tr>
-                                                            <td><input type="button" value="Sunday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Monday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Tuesday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Wednesday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Thursday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Firday" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="Saturday" style="background:#ffffff" /></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="container">
-                                                    <i>of every </i><p><input><i>weeks</i>
-                                                </div>
-                                                <div class="container">
-                                                    <i>start at</i>
-                                                    <button type="button" id="AddStartTime-week"><i class="fa fa-plus">Add</i></button>
-                                                    <button type="button" id="DeleteStartTime-week"><i class="fa fa-plus">Delete</i></button>
-                                                    <ol id="ol-week">
-                                                        <li><input type='text' id='datetimepicker3' /></li>
-                                                    </ol>
-                                                    <script type="text/javascript">
-                                                        $(function () {
-                                                            $("li input").datetimepicker({
-                                                                format: 'LT'
-                                                            });
-                                                            $("#AddStartTime-week").click(function () {
-                                                                console.log("<input type='text' id='datetimepicker3'/>")
-                                                                $("ol#ol-week").append("<li><input type='text' id='datetimepicker3'/></li>");
-                                                                $("li input").datetimepicker({
-                                                                    format: 'LT'
-                                                                });
-                                                            });
-                                                            $("#DeleteStartTime-week").click(function () {
-
-                                                                $("ol#ol-week li:last-child").remove();
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Monthly -->
-                                        <div class="panel panel-danger" id="panel-month">
-                                            <div class="panel-heading">
-                                                <i>Monthly</i>
-                                            </div>
-                                            <div class="panel-default">
-                                                <div class="container">
-                                                    <h4><input type="radio" /><i>The day</i></h4>
-                                                    <!-- the days -->
-                                                    <table>
-                                                        <tr>
-                                                            <td><input type="button" value="01" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="02" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="03" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="04" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="05" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="06" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="07" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="08" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="09" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="10" style="background:#ffffff" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><input type="button" value="12" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="12" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="13" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="14" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="15" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="16" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="17" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="18" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="19" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="20" style="background:#ffffff" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><input type="button" value="21" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="22" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="23" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="24" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="25" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="26" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="27" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="28" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="29" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="30" style="background:#ffffff" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><input type="button" value="31" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="odd" style="background:#ffffff" /></td>
-                                                            <td><input type="button" value="even" style="background:#ffffff" /></td>
-                                                        </tr>
-                                                    </table>
-                                                    <script type="text/javascript">
-                                                        $(function () {
-                                                            $("td input").click(function () {
-                                                                console.log("click")
-                                                                $(this).css("background", "#808080");
-                                                            });
-                                                        });
-                                                        $(function () {
-                                                            $("td input").dblclick(function () {
-                                                                console.log("click")
-                                                                $(this).css("background", "#ffffff");
-                                                            });
-                                                        });
-                                                    </script>
-                                                    <i>of every </i><p><input><i>months</i>
-                                                </div>
-                                                <div class="container">
-                                                    <h4><input type="radio" /><i>The first</i></h4>
-                                                    <input><i>days of every</i><input><i>months</i>
-                                                </div>
-                                                <div class="container">
-                                                    <h4><input type="radio" /><i>The last</i></h4>
-                                                    <input><i>days of every</i><input><i>months</i>
-                                                </div>
-                                                <div class="container">
-                                                    <h4><input type="radio" /><i>The</i></h4>
-                                                    @Html.DropDownList("OrdinalWords", null, htmlAttributes: new { @class = "form-control" })
-                                                    @Html.DropDownList("WeeksWords", null, htmlAttributes: new { @class = "form-control" })
-                                                    <i>of every</i><p><input><i>months</i>
-                                                </div>
-                                                <div class="container">
-                                                    <i>start at</i>
-                                                    <button type="button" id="AddStartTime-month"><i class="fa fa-plus">Add</i></button>
-                                                    <button type="button" id="DeleteStartTime-month"><i class="fa fa-plus">Delete</i></button>
-                                                    <ol id="ol-month">
-                                                        <li><input type='text' id='datetimepicker3' /></li>
-                                                    </ol>
-                                                    <script type="text/javascript">
-                                                        $(function () {
-                                                            $("li input").datetimepicker({
-                                                                format: 'LT'
-                                                            });
-                                                            $("#AddStartTime-month").click(function () {
-                                                                $("ol#ol-month").append("<li><input type='text' id='datetimepicker3'/></li>");
-                                                                $("li input").datetimepicker({
-                                                                    format: 'LT'
-                                                                });
-                                                            });
-                                                            $("#DeleteStartTime-month").click(function () {
-                                                                $("ol#ol-month li:last-child").remove();
-                                                            });
-                                                        });
-                                                    </script>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        @RenderPage("~/Views/PartialPage/PartialPageEnvPanel.cshtml")
+                        <div id="addEnvPanel">
                         </div>
+                        <!--Add another envrionment-->
+                        <button type="button" id="addanotherEnvrionmentPanel"><i class="fa fa-plus">Add EnvPanel</i></button>
                     </div>
                 </div>
                 <div class="panel-footer list-inline" style="float:right">
@@ -451,7 +142,7 @@
             </div>
         }
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-5">
         @if (ViewBag.showAddTenantPanel == true)
         {
             Html.RenderPartial("~/Views/PartialPage/PartialPageAddTenant.cshtml");

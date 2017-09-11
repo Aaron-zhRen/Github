@@ -1,37 +1,37 @@
-﻿@model AdminPortal.Models.AppGroup
+﻿@model AdminPortal.Models.Tenant
 @using(Html.BeginForm(new { add = "addTenant"}))
 {
     @Html.AntiForgeryToken()
     <div class="panel panel-default" style="padding-left:0px;padding-right:0px">
         <div class="panel-heading" style="background:#000000;font-style:inherit">
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add Icm</i>
+            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add Tenant</i>
         </div>
         <div class="panel-body">
             <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Tenant.Name, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Tenant.Description, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Tenant.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Owners, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Tenant.Owners, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Tenant.Owners, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Owners, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Owners, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="panel-footer list-inline" style="float:right">
             <input type="submit" value="Create" class="btn btn-default" />
-            <a href="~/AppGroups/Index"><input type="button" value="cancel" class="btn btn-default" /></a>
+            <a href=""><input type="button" value="cancel" class="btn btn-default" /></a>
         </div>
     </div>
 }

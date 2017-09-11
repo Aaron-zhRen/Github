@@ -42,10 +42,11 @@
                                     <li><a href="~/Appgroups/Index" style="color:#ffffff">Appgroups</a></li>
                                     <li><a href="~/Environments/Index" style="color:#ffffff">Environments</a></li>
                                     <li><a href="~/IcmRoutings/Index" style="color:#ffffff">Icms</a></li>
+                                    <li><a href="~/Applications/Index" style="color:#ffffff">Applications</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="~/Applications/Index"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:25px">OnBoard</i></a>
+                                <a href="~/Applications/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:25px">OnBoard</i></a>
                             </li>
                         </ul>
                     </div>
@@ -53,14 +54,13 @@
         </div>
         <div class="container body-content col-lg-offset-1">
             @RenderBody()
-            <hr />
         </div>
-
     </div>
-
-    <footer class="col-lg-2 col-lg-offset-1">
-        <p>&copy; @DateTime.Now.Year - Sentry Application</p>
-    </footer>
+    <div class="row">
+        <footer class="col-lg-12">
+            <p>&copy; @DateTime.Now.Year - Sentry Application</p>
+        </footer>
+    </div>
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

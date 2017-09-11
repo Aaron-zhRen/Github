@@ -440,6 +440,7 @@
     <Content Include="Views\PartialPage\PartialPageAddAppGroup.cshtml" />
     <Content Include="Views\PartialPage\PartialPageAddIcm.cshtml" />
     <Content Include="Views\PartialPage\PartialPageAddEnv.cshtml" />
+    <Content Include="Views\PartialPage\PartialPageEnvPanel.cshtml" />
     <None Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

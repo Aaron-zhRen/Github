@@ -34,6 +34,19 @@ $(function () {
             $("#selectedicm-panel").show();
         }
 
+        console.log("selec");
+        $.ajax({
+            url: "GetIcm?value="+selec,
+            type: "GET",
+            dataType: "selec",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function () {
+                console.log("page request faild")
+            },
+        })
+
         
     })
     $("#recurrencetypes").change(function () {

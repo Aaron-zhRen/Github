@@ -77,6 +77,7 @@ namespace AdminPortal.Controllers.MVC
             }
 
             ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "Id", "ServiceName", icmRouting.IcmSubscriptionId);
+            ViewBag.IcmName = new SelectList(db.IcmRoutings, "IcmName", "IcmName", icmRouting.IcmSubscriptionId);
             return View(icmRouting);
         }
 
@@ -111,6 +112,7 @@ namespace AdminPortal.Controllers.MVC
             }
             else {
                 ViewBag.IcmSubscriptionId = new SelectList(db.IcmSubscriptions, "Id", "ServiceName", icmRouting.IcmSubscriptionId);
+                ViewBag.IcmName = new SelectList(db.IcmRoutings, "IcmName", "IcmName", icmRouting.IcmSubscriptionId);
                 return View(icmRouting);
             }
             

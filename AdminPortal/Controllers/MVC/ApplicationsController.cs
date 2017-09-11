@@ -18,7 +18,7 @@ namespace AdminPortal.Content.Controllers.MVC
         // GET: Applications
         public ActionResult Index(string appsortOrder,string SearchString)
         {
-            var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup);
+            var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup).Include(a => a.IcmRouting);
 
             //function of search
             if (!string.IsNullOrEmpty(SearchString))
@@ -53,8 +53,9 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: Applications/Create
-        public ActionResult Create(string addsome)
+        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,string addsome)
         {
+            
             DateforDropownlist();
             if (!string.IsNullOrEmpty(addsome))
             {
@@ -70,8 +71,19 @@ namespace AdminPortal.Content.Controllers.MVC
             }
             return View();
         }
-       
 
+        //add new env panel
+       
+        public ActionResult GetIcm(string value)
+        {
+            var icm = db.IcmRoutings.Where(a => a.IcmRoutingId.Equals(value)).Include(a=>a.IcmSubscription);
+
+            ViewBag.getIcnName = icm;
+           
+            return View(icm.ToList());
+        }
+
+        //some SelectlistItem resource
         public void DateforDropownlist() {
             List<SelectListItem> Recurrencetypes = new List<SelectListItem>
             {
@@ -109,7 +121,7 @@ namespace AdminPortal.Content.Controllers.MVC
             ViewBag.OrdinalWords = OrdinalWords;
             ViewBag.WeeksWords = WeeksWords;
             ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
-            ViewBag.IcmRoutings = new SelectList(db.IcmRoutings, "IcmRoutingId", "IcmName");
+            ViewBag.IcmRoutingId = new SelectList(db.IcmRoutings, "IcmRoutingId", "IcmName");
             ViewBag.AppGroupId = new SelectList(db.AppGroups, "AppGroupId", "Name");
             ViewBag.AppTypeId = new SelectList(db.AppTypes, "AppTypeId", "Type");
             ViewBag.EnvId = new SelectList(db.Environments, "EnvId", "Name");
@@ -125,13 +137,12 @@ namespace AdminPortal.Content.Controllers.MVC
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(
-            [Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,
+            [Bind(Include = "AppId,Name,Description,AlertEmails,CatchupModeWindow,IsEnabled,IsIcmEnabled,Owners,AppTypeId,AppGroupId,IcmRoutingId,TenantId")] Application application,
             [Bind(Include = "Name,Description,Owners")]Tenant tenant,
             [Bind(Include = "IcmName,IcmRoutingId,IcmSubscriptionId,RoutingId,CorrelationId")] IcmRouting icmRouting, 
             [Bind(Include = "ServiceName,ConnectorId")] IcmSubscription icmSubscription,
             [Bind(Include = "AppGroupId,TenantId,Name,Description")] AppGroup appGroup,
-            [Bind(Include = "EnvId,Name,Description,IsEnabled")] Models.Environment environment,
-            string add)
+            [Bind(Include = "EnvId,Name,Description,IsEnabled")] Models.Environment environment,string add)
         {
             if (ModelState.IsValid)
             {
@@ -163,6 +174,7 @@ namespace AdminPortal.Content.Controllers.MVC
                         break;
                 }
             }
+           
             DateforDropownlist();
             return View(application);
         }
