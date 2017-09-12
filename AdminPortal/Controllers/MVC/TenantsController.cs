@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
+using PagedList;
 
 namespace AdminPortal.Content.Controllers.MVC
 {
@@ -16,10 +17,19 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Tenants
-        public async Task<ActionResult> Index(string appsortOrder, string SearchString)
+        public async Task<ActionResult> Index(string appsortOrder, string SearchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = appsortOrder;
             var tenants = db.Tenants.Include(a =>a.AppGroups);
-
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
             //function of search
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -36,7 +46,10 @@ namespace AdminPortal.Content.Controllers.MVC
                     tenants = tenants.OrderBy(u => u.Name);
                     break;
             }
-            return View(await tenants.ToListAsync());
+
+            int pageSize = 16;
+            int pageNumber = (page ?? 1);
+            return View(tenants.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Tenants/Details/5

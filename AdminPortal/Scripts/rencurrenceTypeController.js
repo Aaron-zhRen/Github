@@ -36,9 +36,8 @@ $(function () {
 
         console.log("selec");
         $.ajax({
-            url: "GetIcm?value="+selec,
+            url: "Create?value="+selec,
             type: "GET",
-            dataType: "selec",
             success: function (data) {
                 console.log(data)
             },

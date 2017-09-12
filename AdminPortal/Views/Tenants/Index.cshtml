@@ -1,4 +1,6 @@
-﻿@model IEnumerable<AdminPortal.Models.Tenant>
+﻿@model PagedList.IPagedList<AdminPortal.Models.Tenant>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet">
 
 @{
     ViewBag.Title = "Index";
@@ -10,10 +12,10 @@
         <div class="pull-right">
             <a href="~/Tenants/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index", "Tenants", FormMethod.Get))
         {
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Tenants</i>
-            @Html.TextBox("SearchString")<input type="submit" value="SearchTenant" />
+            <a class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px" href="~/Tenants/Index">Tenants</a>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)<input type="submit" value="SearchTenant" />
         }
     </div>
     <!-- /.panel-heading -->
@@ -23,13 +25,13 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm })
+                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm , currentFilter = ViewBag.CurrentFilter })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
+                            Description
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Owners)
+                            Owners
                         </th>
                         <th></th>
                     </tr>
@@ -55,7 +57,8 @@
                     }
 
                 </table>
-
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
             </div>
 
             <div class="col-lg-8">

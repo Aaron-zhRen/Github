@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace AdminPortal.Content.Controllers.MVC
 {
@@ -16,10 +17,20 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Applications
-        public ActionResult Index(string appsortOrder,string SearchString)
+        public ActionResult Index(string appsortOrder,string SearchString, string currentFilter, int? page)
         {
-            var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup).Include(a => a.IcmRouting);
 
+            ViewBag.CurrentSort = appsortOrder;
+            var Applications = db.Applications.Include(a => a.AppGroup.Tenant).Include(a => a.AppGroup).Include(a => a.IcmRouting);
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
             //function of search
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -34,7 +45,11 @@ namespace AdminPortal.Content.Controllers.MVC
                 default:Applications = Applications.OrderBy(u => u.Name);
                     break;
             }
-            return View(Applications.ToList());
+
+            int pageSize = 16;
+            int pageNumber = (page ?? 1);
+           
+            return View(Applications.ToPagedList(pageNumber, pageSize));
         }
        
         // GET: Applications/Details/5
@@ -53,7 +68,7 @@ namespace AdminPortal.Content.Controllers.MVC
         }
 
         // GET: Applications/Create
-        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,string addsome)
+        public ActionResult Create([Bind(Include = "AppId,Name,Description,AlertEmails,IsEnabled,Owners,IsIcmEnabled,AppTypeId,AppGroupId,TenantId,IcmRoutingId")] Application application,string addsome, string value)
         {
             
             DateforDropownlist();
@@ -69,20 +84,24 @@ namespace AdminPortal.Content.Controllers.MVC
                 }
 
             }
+            if (!string.IsNullOrEmpty(value))
+            {
+                int icmid = int.Parse(value);
+                var icm = db.IcmRoutings.Where(a => a.IcmRoutingId.Equals(icmid)).Include(a => a.IcmSubscription).ToList();
+                foreach (var item in icm) {
+                    ViewBag.SelsectedIcmName = item.IcmName;
+                    ViewBag.SelsectedRoutingId = item.RoutingId;
+                    ViewBag.SelsectedServiceName = item.IcmSubscription.ServiceName;
+                    ViewBag.SelsectedCorrelationId = item.CorrelationId;
+                }
+            }
+
             return View();
         }
 
         //add new env panel
        
-        public ActionResult GetIcm(string value)
-        {
-            var icm = db.IcmRoutings.Where(a => a.IcmRoutingId.Equals(value)).Include(a=>a.IcmSubscription);
-
-            ViewBag.getIcnName = icm;
-           
-            return View(icm.ToList());
-        }
-
+       
         //some SelectlistItem resource
         public void DateforDropownlist() {
             List<SelectListItem> Recurrencetypes = new List<SelectListItem>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
+using PagedList;
 
 namespace AdminPortal.Content.Controllers.MVC
 {
@@ -15,9 +16,20 @@ namespace AdminPortal.Content.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: Environments
-        public ActionResult Index(string appsortOrder, string SearchString)
+        public ActionResult Index(string appsortOrder, string SearchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = appsortOrder;
             var environments = db.Environments.OrderByDescending(u => u.Name);
+
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
             //function of search
             if (!string.IsNullOrEmpty(SearchString))
             {
@@ -34,7 +46,9 @@ namespace AdminPortal.Content.Controllers.MVC
                     environments = environments.OrderBy(u => u.Name);
                     break;
             }
-            return View(environments.ToList());
+            int pageSize = 16;
+            int pageNumber = (page ?? 1);
+            return View(environments.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Environments/Details/5

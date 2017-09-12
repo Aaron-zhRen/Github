@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPortal.Models;
+using PagedList;
 
 namespace AdminPortal.Controllers.MVC
 {
@@ -16,8 +17,18 @@ namespace AdminPortal.Controllers.MVC
         private WebPortal db = new WebPortal();
 
         // GET: IcmRoutings
-        public async Task<ActionResult> Index(string appsortOrder, string SearchString)
+        public async Task<ActionResult> Index(string appsortOrder, string SearchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = appsortOrder;
+            if (SearchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = SearchString;
             var icmRoutings = db.IcmRoutings.Include(i => i.IcmSubscription);
             //function of search
             if (!string.IsNullOrEmpty(SearchString))
@@ -35,7 +46,11 @@ namespace AdminPortal.Controllers.MVC
                     icmRoutings = icmRoutings.OrderBy(u => u.IcmName);
                     break;
             }
-            return View(await icmRoutings.ToListAsync());
+            int pageSize = 16;
+            int pageNumber = (page ?? 1);
+
+            // return View(await appGroups.ToListAsync());
+            return View(icmRoutings.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: IcmRoutings/Details/5

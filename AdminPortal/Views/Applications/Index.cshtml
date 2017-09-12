@@ -1,4 +1,6 @@
-﻿@model IEnumerable<AdminPortal.Models.Application>
+﻿@model PagedList.IPagedList<AdminPortal.Models.Application>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet">
 
 @{
     ViewBag.Title = "Index";
@@ -9,12 +11,12 @@
         <div class="pull-right">
             <a href="~/Applications/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index", "Applications", FormMethod.Get))
         {
             <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Applications</i>
             @Html.TextBox("SearchString")<input type="submit" value="SearchApp" />
         }
-        
+
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -23,7 +25,7 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.ActionLink("Name","Index",new { appsortOrder = ViewBag.AppNameSortParm })
+                            @Html.ActionLink("Name","Index",new { appsortOrder = ViewBag.AppNameSortParm, currentFilter = ViewBag.CurrentFilter })
                         </th>
                         <th>
                             <i>AppGroupName</i>
@@ -54,7 +56,8 @@
                         </tr>
                     }
                 </table>
-
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
             </div>
             <div class="col-lg-8">
                 <div id="morris-bar-chart"></div>

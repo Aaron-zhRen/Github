@@ -1,5 +1,7 @@
-﻿@model IEnumerable<AdminPortal.Models.AppGroup>
-
+﻿
+@model PagedList.IPagedList<AdminPortal.Models.AppGroup>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel = "stylesheet">
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,10 +12,10 @@
         <div class="pull-right">
             <a href="~/Appgroups/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index","Appgroups",FormMethod.Get))
         {
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">AppGroups</i>
-            @Html.TextBox("SearchString")<input type="submit" value="SearchAppGroups" />
+            <a class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px" href="~/Appgroups/Index">AppGroups</a>
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)<input type="submit" value="SearchAppGroups" />
         }
     </div>
     <!-- /.panel-heading -->
@@ -23,10 +25,10 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm })
+                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm ,currentFilter = ViewBag.CurrentFilter })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
+                            Description
                         </th>
                         <th>
                             <i>Tenant Name</i>
@@ -53,6 +55,8 @@
                         </tr>
                     }
                 </table>
+                <br/>
+                @Html.PagedListPager(Model,page=>Url.Action("Index",new { page,sortOrder = ViewBag.CurrentSort,currentFilter = ViewBag.CurrentFilter}))
             </div>
             <div class="col-lg-8">
                 <div id="morris-bar-chart"></div>

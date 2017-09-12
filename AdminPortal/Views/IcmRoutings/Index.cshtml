@@ -1,4 +1,6 @@
-﻿@model IEnumerable<AdminPortal.Models.IcmRouting>
+﻿@model PagedList.IPagedList<AdminPortal.Models.IcmRouting>
+@using PagedList.Mvc;
+
 
 @{
     ViewBag.Title = "Index";
@@ -12,9 +14,9 @@
         <div class="pull-right">
             <a href="~/IcmRoutings/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index", "IcmRoutings", FormMethod.Get))
         {
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Icm</i>
+            <a class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px",href="~/IcmRoutings/Index">Icm</a>
             @Html.TextBox("SearchString")<input type="submit" value="SearchIcm" />
         }
     </div>
@@ -25,16 +27,16 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm })
+                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm, currentFilter = ViewBag.CurrentFilter })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IcmSubscription.ServiceName)
+                            ServiceName
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoutingId)
+                            RoutingId
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.CorrelationId)
+                            CorrelationId
                         </th>
                         <th></th>
                     </tr>
@@ -63,7 +65,8 @@
                     }
 
                 </table>
-
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
             </div>
 
             <div class="col-lg-8">

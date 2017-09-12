@@ -1,5 +1,5 @@
-﻿@model IEnumerable<AdminPortal.Models.Environment>
-
+﻿@model PagedList.IPagedList<AdminPortal.Models.Environment>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,9 +11,9 @@
         <div class="pull-right">
             <a href="~/Environments/Create"><i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:15px">Add</i></a>
         </div>
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index", "Environments", FormMethod.Get))
         {
-            <i class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px">Environments</i>
+            <a class="fa fa-bar-chart-o fa-fw" style="color:#ffffff;font-size:30px" href="~/Environments/Index">Environments</a>
             @Html.TextBox("SearchString")<input type="submit" value="SearchTenant" />
         }
     </div>
@@ -24,13 +24,13 @@
                 <table class="table">
                     <tr>
                         <th>
-                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm })
+                            @Html.ActionLink("Name", "Index", new { appsortOrder = ViewBag.AppNameSortParm , currentFilter = ViewBag.CurrentFilter })
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Description)
+                            Description
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IsEnabled)
+                            IsEnabled
                         </th>
                         <th></th>
                     </tr>
@@ -56,7 +56,8 @@
                     }
 
                 </table>
-
+                <br />
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
             </div>
 
             <div class="col-lg-8">
