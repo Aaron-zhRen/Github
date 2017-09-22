@@ -266,9 +266,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709120405014_webportal.cs" />
-    <Compile Include="Migrations\201709120405014_webportal.Designer.cs">
-      <DependentUpon>201709120405014_webportal.cs</DependentUpon>
+    <Compile Include="Migrations\201709130203443_webprotal.cs" />
+    <Compile Include="Migrations\201709130203443_webprotal.Designer.cs">
+      <DependentUpon>201709130203443_webprotal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -444,6 +444,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\rencurrenceTypeController.js" />
+    <Content Include="Scripts\rencurrenceTypeControllerForEdit.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\PartialPage\PartialPageAddAppGroup.cshtml" />
@@ -527,8 +528,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709120405014_webportal.resx">
-      <DependentUpon>201709120405014_webportal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709130203443_webprotal.resx">
+      <DependentUpon>201709130203443_webprotal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

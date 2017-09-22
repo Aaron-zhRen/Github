@@ -33,6 +33,16 @@
                         <th>
                             <i>TenanName</i>
                         </th>
+                        <th>
+                            <i>IcM</i>
+                        </th>
+                        <th>
+                            <i>Envrionment</i>
+                        </th>
+                        <th>
+                            <i>IsEnabled</i>
+                        </th>
+
                         <th></th>
                     </tr>
 
@@ -47,6 +57,15 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.AppGroup.Tenant.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IcmRouting.IcmName)
+                            </td>
+                            <td>
+                                Envrionment
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsEnabled)
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.AppId }) |

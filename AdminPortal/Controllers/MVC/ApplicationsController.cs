@@ -89,7 +89,7 @@ namespace AdminPortal.Content.Controllers.MVC
                 int icmid = int.Parse(value);
                 var icm = db.IcmRoutings.Where(a => a.IcmRoutingId.Equals(icmid)).Include(a => a.IcmSubscription).ToList();
                 foreach (var item in icm) {
-                    ViewBag.SelsectedIcmName = item.IcmName;
+                    ViewBag.SelsectedIcmName = item.IcmName.ToString();
                     ViewBag.SelsectedRoutingId = item.RoutingId;
                     ViewBag.SelsectedServiceName = item.IcmSubscription.ServiceName;
                     ViewBag.SelsectedCorrelationId = item.CorrelationId;
@@ -98,6 +98,9 @@ namespace AdminPortal.Content.Controllers.MVC
 
             return View();
         }
+
+
+
 
         //add new env panel
        

@@ -68,14 +68,6 @@
                                 @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <!-- AppType-->
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.AppTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("AppTypeId", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.AppTypeId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
                         <!-- EnableIcm -->
                         <div class="form-group">
                             @Html.LabelFor(model => model.IsIcmEnabled, "IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -87,54 +79,30 @@
                         <div class="form-group" id="IcmPanel">
                             @Html.LabelFor(model => model.IcmRoutingId, "Icm", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("IcmRoutingId", null,htmlAttributes: new { @class = "form-control" ,@id = "selectIcm"})
+                                @Html.DropDownList("IcmRoutingId", null, htmlAttributes: new { @class = "form-control", @id = "selectIcm" })
                                 @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
                                 @Html.ActionLink("AddIcm", "Create", new { addsome = "AddIcm" })
                             </div>
                         </div>
-
-                        <i>whtaeeeee @ViewBag.SelsectedIcmName</i>
-                        
-
-                        @if (ViewBag.SelsectedIcmName != null)
-                        {
-                            <div>
-                                <i>"ViewBag.SelsectedIcmName"</i>
-                            </div>
-
-                        }
+                        <div>
+                        </div>
+                       
 
                     <!-- ICM set  -->
                             <div class="panel">
                             </div>
                             <div class="panel-body" id="selectedicm-panel">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                    </div>
+                                    Name: @ViewBag.SelsectedIcmName
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IcmRoutingId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DisplayFor(model => model.IcmRoutingId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
-                                    </div>
+                                    RoutingId: @ViewBag.SelsectedRoutingId
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ConnectorId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DisplayFor(model => model.IcmRouting.IcmSubscription.ConnectorId, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ConnectorId, "", new { @class = "text-danger" })
-                                    </div>
+                                    ServiceName: @ViewBag.SelsectedCorrelationId
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.IcmRouting.IcmSubscription.ServiceName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.DisplayFor(model => model.IcmRouting.IcmSubscription.ServiceName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.IcmRouting.IcmSubscription.ServiceName, "", new { @class = "text-danger" })
-                                    </div>
+                                    CorrelationId:@ViewBag.SelsectedCorrelationId
                                 </div>
                             </div>
                             <!-- Environment set  -->

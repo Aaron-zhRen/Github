@@ -9,8 +9,14 @@
     public class AppGroup
     {
         public int AppGroupId { get; set; }
+        [Required]
         public Guid TenantId { get; set; }
+        [StringLength(20, ErrorMessage = "No more than 20 words")]
+        [Column("AppGroup Name")]
+        [Required]
         public string Name { get; set; }
+        [StringLength(100,ErrorMessage ="No more than 100 words")]
+        [Column("AppGroup Description")]
         public string Description { get; set; }
         /// <summary>
         /// Foreign keys relation ship

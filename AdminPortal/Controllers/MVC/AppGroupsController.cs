@@ -61,6 +61,7 @@ namespace AdminPortal.Content.Controllers.MVC
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             AppGroup appGroup = await db.AppGroups.FindAsync(id);
+            
             if (appGroup == null)
             {
                 return HttpNotFound();
@@ -89,24 +90,27 @@ namespace AdminPortal.Content.Controllers.MVC
         public async Task<ActionResult> Create([Bind(Include = "AppGroupId,TenantId,Name,Description")] AppGroup appGroup, [Bind(Include = "Name,Description,Owners")]Tenant tenant, string add)
         {
 
-            if (ModelState.IsValid)
+            switch (add)
             {
-
-                switch (add)
-                {
-                    case "addTenant":
-                        tenant.TenantId = Guid.NewGuid();
+                case "addTenant":
+                    tenant.TenantId = Guid.NewGuid();
+                    
                         db.Tenants.Add(tenant);
                         await db.SaveChangesAsync();
-                        ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
-                        break;
-                    case "addAppgroup":
+                    
+                    ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+                    break;
+                case "addAppgroup":
+                    
                         db.AppGroups.Add(appGroup);
                         await db.SaveChangesAsync();
+                    
                         return RedirectToAction("Index");
-                }
+
             }
-            return View(appGroup);
+
+            ViewBag.TenantId = new SelectList(db.Tenants, "TenantId", "Name");
+            return View();
         }
 
         // GET: AppGroups/Edit/5

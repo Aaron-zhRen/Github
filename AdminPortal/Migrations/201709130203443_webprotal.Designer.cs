@@ -7,13 +7,13 @@ namespace AdminPortal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class webportal : IMigrationMetadata
+    public sealed partial class webprotal : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(webportal));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(webprotal));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709120405014_webportal"; }
+            get { return "201709130203443_webprotal"; }
         }
         
         string IMigrationMetadata.Source

@@ -17,7 +17,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,@id = "Tena"} })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -43,6 +43,36 @@
         </div>
     </div>
 }
+
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            return check();
+        });
+    });
+    function check() {
+        var bool = true;
+        console.log("submint start")
+        var stringName = "a";
+        console.log("submint start:Name-->" +stringName)
+        $.ajax({
+            type: "get",
+            url: "@Url.Content("~/Create/CheckExists")",
+            data: "Name=" + stringName,
+            async: false,
+            success: function (data) {
+                if (data == '1') {
+                    alert('The TenantName exited! Please choose another!');
+                    bool = false;
+                }
+            }
+        });
+
+        console.log("submint result"+ bool)
+        return bool;
+    }
+</script>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
 }

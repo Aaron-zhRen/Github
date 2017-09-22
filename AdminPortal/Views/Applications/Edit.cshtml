@@ -19,7 +19,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" , @readOnly = "readOnly " } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -33,10 +33,10 @@
                 </div>
                 <!-- TenantName -->
                 <div class="form-group">
-                    @Html.LabelFor(model => model.TenantId, "TenantName", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Tenant.Name, "TenantName", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("TenantId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Tenant.Name, new { htmlAttributes = new { @class = "form-control" ,@readOnly = "readOnly " } })
+                        @Html.ValidationMessageFor(model => model.Tenant.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <!-- AggGroupName -->
@@ -63,15 +63,6 @@
                         @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <!-- AppType-->
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AppTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("AppTypeId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.AppTypeId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
                 <!-- EnableIcm -->
                 <div class="form-group">
                     @Html.LabelFor(model => model.IsIcmEnabled, "IsIcmEnable", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -80,13 +71,11 @@
                         @Html.ValidationMessageFor(model => model.IsIcmEnabled, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
-
                 <!-- ICM set  -->
                 <div class="form-group">
                     @Html.LabelFor(model => model.IcmRoutingId, "IcmRoutings", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownList("IcmRoutings", ViewBag.IcmRoutings as SelectList, htmlAttributes: new { @class = "form-control", @id = "selectIcm" })
+                        @Html.DropDownList("IcmRoutingId", ViewBag.IcmRoutings as SelectList, htmlAttributes: new { @class = "form-control", @id = "selectIcm" })
                         @Html.ValidationMessageFor(model => model.IcmRoutingId, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -396,7 +385,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/rencurrenceTypeControllerForEdit")
+
 }
+
+
+
+
 
 
 

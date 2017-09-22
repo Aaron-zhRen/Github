@@ -73,6 +73,13 @@ namespace AdminPortal.Content.Controllers.MVC
             return View();
         }
 
+        //check the repeat name
+        public ActionResult CheckExists(string Name)
+        {
+            var count = (db.Tenants.Where(u => u.Name.Contains(Name))).Count();
+            return count > 0 ? Content("1") : Content("0");
+        }
+
         // POST: Tenants/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
